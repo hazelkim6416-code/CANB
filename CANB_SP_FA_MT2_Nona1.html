@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Nona 1 MT2 Review Sheet</title>
+<style>
+  :root{--bg:#f4f5f7;--ink:#111;--muted:#6b7280;--line:#d8dbe2;--panel:#fff;--accent:#111827;--answer:#fff3b0;--doc-font:16px;--print-font:10.5pt;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--ink)}
+  .topbar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 1px 5px rgba(0,0,0,.06)}
+  .bar-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:9px 12px}
+  .title{font-weight:800;margin-right:auto}
+  button,select,input[type=range]{font:inherit}
+  button{border:1px solid #cfd3da;background:#fff;border-radius:7px;padding:6px 10px;cursor:pointer}
+  button:hover{background:#f3f4f6}
+  button.active{background:#111827;color:#fff;border-color:#111827}
+  .zoomlabel{min-width:44px;text-align:center;font-variant-numeric:tabular-nums}
+  .workspace{overflow:auto;padding:18px}
+  #stage{position:relative;margin:0 auto;width:min(1100px,100%);transform-origin:top center}
+  #paper{position:relative;background:#fff;border:1px solid #d9dde4;box-shadow:0 4px 20px rgba(0,0,0,.07);padding:34px 42px 70px;min-height:1200px;font-size:var(--doc-font)}
+  #drawCanvas{position:absolute;inset:0;z-index:8;pointer-events:none}
+  .dochead{border-bottom:4px solid #111827;padding-bottom:12px;margin-bottom:24px}
+  .dochead h1{margin:0;font-size:32px}.dochead .sub{margin-top:6px;color:#4b5563;font-weight:700}
+  h2{font-size:25px;margin:34px 0 14px;padding:9px 12px;background:#e5e7eb;border-left:6px solid #111827}
+  h3{font-size:18px;margin:24px 0 8px}
+  .instructions{font-weight:700;margin:7px 0 14px}
+  .passage{border:1.5px solid #111;padding:16px 18px;line-height:1.72;margin:10px 0 16px;white-space:pre-line}
+  .question{margin:16px 0 20px;line-height:1.55;page-break-inside:avoid}
+  .qtext{font-weight:700;margin-bottom:7px}
+  .choices{display:grid;grid-template-columns:1fr 1fr;gap:5px 18px;padding-left:8px}
+  .choice{padding:3px 6px;border-radius:5px}
+  .choice.correct.show{background:var(--answer);font-weight:800;outline:2px solid #e7c93b}
+  .blankbox{border:1px solid #555;padding:12px;margin:8px 0 10px;background:#fafafa}
+  .section{scroll-margin-top:120px}
+  .small{color:var(--muted);font-size:13px}
+  .toolsep{width:1px;height:28px;background:#e5e7eb;margin:0 2px}
+  .fontlabel{min-width:48px;text-align:center;font-variant-numeric:tabular-nums;font-weight:700}
+  .print-preview .workspace{background:#d1d5db;padding:14px}
+  .print-preview #stage{width:794px;max-width:100%}
+  .print-preview #paper{padding:10mm 11mm 14mm;box-shadow:0 3px 16px rgba(0,0,0,.16);font-size:var(--print-font);min-height:1123px}
+  .print-preview .passage{line-height:1.45;padding:10px 12px;margin:7px 0 10px}
+  .print-preview .question{margin:9px 0 11px;line-height:1.38}
+  .print-preview .choices{gap:2px 14px}
+  .print-preview h2{margin:20px 0 9px;padding:6px 9px;font-size:20px}
+  .print-preview .dochead{margin-bottom:14px;padding-bottom:8px}
+  .print-preview .dochead h1{font-size:26px}
+  #menuReveal{
+    display:none;position:fixed;top:10px;right:12px;z-index:50;
+    border:1px solid #cfd3da;background:#fff;border-radius:8px;
+    padding:7px 11px;box-shadow:0 2px 10px rgba(0,0,0,.12);cursor:pointer
+  }
+  body.menu-hidden .topbar{display:none}
+  body.menu-hidden #menuReveal{display:block}
+  .print-preview.print-two-col #paper{
+    column-count:2;
+    column-gap:9mm;
+    column-rule:1px solid #e5e7eb;
+  }
+  .print-preview.print-two-col .dochead{column-span:all}
+  .print-preview.print-two-col .section{break-inside:auto}
+  .print-preview.print-two-col .question,
+  .print-preview.print-two-col .passage,
+  .print-preview.print-two-col .instructions,
+  .print-preview.print-two-col h2,
+  .print-preview.print-two-col h3{break-inside:avoid}
+  @media(max-width:720px){#paper{padding:24px 18px 60px}.choices{grid-template-columns:1fr}.dochead h1{font-size:26px}.bar-row{gap:6px}button{padding:6px 8px;font-size:13px}}
+  @page{size:A4;margin:9mm 10mm 11mm}
+  @media print{
+    body{background:#fff}
+    .topbar{display:none!important}
+    .workspace{padding:0;overflow:visible;background:#fff}
+    #stage{width:100%!important;max-width:none!important;transform:none!important;margin:0!important}
+    #paper{box-shadow:none;border:none;padding:0!important;min-height:0;font-size:var(--print-font)!important}
+    #drawCanvas{display:none!important}
+    .dochead{margin:0 0 10px;padding-bottom:7px}
+    .dochead h1{font-size:22px}.dochead .sub{font-size:11px}
+    h2{font-size:16px;margin:14px 0 7px;padding:5px 7px;border-left-width:4px}
+    h3{font-size:13px;margin:12px 0 5px}
+    .instructions{margin:4px 0 7px}
+    .passage{padding:8px 10px;line-height:1.38;margin:5px 0 8px;break-inside:avoid}
+    .question{margin:6px 0 8px;line-height:1.32;break-inside:avoid}
+    .qtext{margin-bottom:3px}
+    .choices{gap:1px 12px;padding-left:4px}
+    .choice{padding:1px 3px}
+    .blankbox{padding:7px;margin:4px 0 6px}
+    .choice.correct.show{background:none!important;outline:none!important;font-weight:400!important}
+    body.print-two-col #paper{
+      column-count:2;
+      column-gap:8mm;
+      column-rule:0;
+    }
+    body.print-two-col .dochead{column-span:all}
+    body.print-two-col .section{break-inside:auto}
+    body.print-two-col .question,
+    body.print-two-col .passage,
+    body.print-two-col .instructions,
+    body.print-two-col h2,
+    body.print-two-col h3{break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="bar-row">
+    <div class="title">Nona 1 MT2 Review</div>
+    <button id="printPreview">인쇄용 보기</button><button onclick="window.print()">인쇄</button>
+    <span>인쇄 레이아웃</span><button id="printOneCol" class="active">1단</button><button id="printTwoCol">2단</button>
+    <div class="toolsep"></div>
+    <button id="hideMenu">메뉴 숨기기</button>
+    <div class="toolsep"></div>
+    <span>화면 글자</span><button id="fontDown">−</button><span id="fontLabel" class="fontlabel">100%</span><button id="fontUp">+</button><button id="fontReset">기본</button>
+    <span>인쇄 글자</span><button id="printFontDown">−</button><span id="printFontLabel" class="fontlabel">10.5pt</span><button id="printFontUp">+</button>
+    <select id="jump" aria-label="메뉴">
+      <option value="">메뉴</option><option value="reading">Reading</option><option value="vocab">Vocabulary</option><option value="grammar">Grammar</option>
+    </select>
+    <div class="toolsep"></div>
+    <button id="showAns">전체 정답</button><button id="hideAns">정답 숨기기</button>
+    <div class="toolsep"></div>
+    <button id="zoomOut">−</button><span id="zoomLabel" class="zoomlabel">100%</span><button id="zoomIn">+</button><button id="zoom100">100%</button><button id="fitWidth">폭 맞춤</button><button id="fullscreen">전체 화면</button>
+  </div>
+  <div class="bar-row">
+    <button id="selectTool" class="active">선택</button><button id="penTool">펜</button><button id="eraserTool">지우개</button>
+    <span>펜 굵기</span><input id="penSize" type="range" min="1" max="14" value="3" />
+    <div class="toolsep"></div>
+    <button id="undo">실행 취소</button><button id="redo">다시 실행</button><button id="clear">전체 지우기</button><button id="hideInk">필기 숨기기</button><button id="showInk">필기 보기</button>
+    <span class="small">필기는 이 브라우저에만 저장됩니다.</span>
+  </div>
+</div>
+<button id="menuReveal">메뉴 보기</button>
+<div class="workspace" id="workspace">
+  <div id="stage"><div id="paper">
+    <canvas id="drawCanvas"></canvas>
+    <div class="dochead"><h1>READi Review Sheet</h1><div class="sub">’26 SP MT2 [Nona 1]</div></div>
+
+    <section id="reading" class="section"><h2>Reading</h2><div class="instructions">Choose the correct answer.</div>
+      <div class="passage">Do you like to observe people? The waiting room in a doctor’s office is a great place to do this. Dr. Friedman and Dr. Rosenman observed their patients in the waiting room for over nine years. From this, <u>they</u> found two types of personalities.
+
+Some people have a hard time sitting in one place. They cannot sit for long. They often stand up to walk around. These people are not good at waiting. They need to get a lot of things done. People like this are called Type A. Type A people are ambitious. They work very hard. They are also scared of failing.
+
+The other group of people is quite different. They can sit and wait for a long time. They are happy doing just one thing. This group of people is called Type B. Type B people are easygoing. They are less worried about failing. They can relax more easily.
+
+By observing their patients, Dr. Friedman and Dr. Rosenman learned a lot. Next, they wanted to find out how these two personality types affect people’s lives.</div>
+      <div id="r1"></div>
+
+      <div class="passage">While studying two types of personalities, Dr. Friedman and Dr. Rosenman learned that personality affects a person’s health and lifestyle.
+
+The doctors first looked at their patients’ health. They learned that Type B people are healthier than Type A people. One reason is stress. Type A people easily get stressed. Too much stress is bad for the heart. For this reason, Type A people have more heart disease. Type B people are easygoing. They have less stress, so they have less heart disease.
+
+Then, the doctors observed their patients’ lifestyles. They found that Type B people are better friends than Type A people. Type A people are ambitious. They work harder to succeed. They want their work done quickly and perfectly. Also, they easily get impatient and angry with others. This makes other people uncomfortable. However, Type B people get along more easily with others. <u>They</u> have better manners. People feel more comfortable around them.
+
+The doctors’ studies showed how behavior, health, and lifestyle are different for each personality type. Think about the two personality types. Which one are you? Which one do you think is better?</div>
+      <div id="r2"></div>
+
+      <div class="passage">Blake looked at the clock and realized that it was already past midnight. He was still up. He was too stressed about his final exam.
+
+After getting almost no sleep, Blake woke up feeling exhausted. His mom made him his favorite breakfast. He didn’t feel like eating, though, because he was under a lot of stress. He couldn’t enjoy the blueberry pancakes as he usually does.
+
+When he arrived in the classroom, other students were chatting with each other. Blake didn’t join them because he was too nervous. He couldn’t stop thinking about how unprepared he felt. The teacher passed out the test, and Blake looked at the questions. He couldn’t understand any of <u>them</u> because his heart was pounding rapidly. He closed his eyes and breathed deeply because he had to focus and complete the test.
+
+After taking the test, Blake walked out of the classroom. Just then, he remembered he didn’t put his name on the test. “How could I forget that? It’s all because of stress!” Blake felt helpless, but he couldn’t go back in time. For now, he has to find some ways to get rid of his stress and relax.</div>
+      <div id="r3"></div>
+    </section>
+
+    <section id="vocab" class="section"><h2>Vocabulary</h2><div id="vqs"></div></section>
+    <section id="grammar" class="section"><h2>Grammar</h2><div id="gqs"></div></section>
+  </div></div>
+</div>
+<script>
+const readingSets = [
+  [
+    ['How did the doctors learn about different personalities?', ["by meeting their patients' families","by monitoring how their patients waited in the waiting room","by asking other doctors about their patients","by behaving like their patients in the waiting room"],1],
+    ['What does the word <u>they</u> refer to?', ['people','the greatest places','Dr. Friedman and Dr. Rosenman','their patients'],2],
+    ['Why do Type A people work hard?', ['They do not care much of failing.','They are ambitious and afraid of failing.','They are good at relaxing.','They like doing just one thing.'],1],
+    ['Which of the following is NOT true about Type B people?', ['They can spend a lot of time sitting and waiting.','Relaxing is not easy for them.','Doing just one thing makes them happy.','They are not very worried about failing.'],1],
+    ['What are the best words for the blanks in order to complete the summary?<div class="blankbox">Doctors found out two types of personalities. Type A people are ________ and impatient. They do not like waiting. Type B people are ________, and they are able to wait for a long time. These two types of personalities differ a lot from each other.</div>', ['friendly – hardworking','relaxed – unique','kind – scared','ambitious – easygoing'],3]
+  ],
+  [
+    ['What does too much stress do to Type A people?', ['It makes them healthier than Type B people.','It causes them more heart disease.',"It doesn't affect them at all.",'It helps them become easygoing.'],1],
+    ['What does the word <u>They</u> refer to?', ['Type A people','Type B people','the doctors','the patients'],1],
+    ['Which of the following is NOT true about the types of personalities?', ['Type B people are good at making friends.','Type B people work harder to be successful than Type A people.','Type A people are less patient with others than Type B people.','Type A people can make others feel uncomfortable.'],1],
+    ['How are Type A people when they work on something?', ['They are easygoing and patient.','They try to do the job perfectly.','They have better manners.','They are friendly and easy to get along with.'],1],
+    ['What are the best words for the blanks in order to complete the summary?<div class="blankbox">Personality can affect the ________ and ________ of a person. Type A people work hard but get stressed easily. They want things to be perfect. They are quick to get upset. Type B people are healthier and make good friends. They are comfortable to be around.</div>', ['health – lifestyle','problems – work','stress – study','success – friends'],0]
+  ],
+  [
+    ['What does the word <u>them</u> refer to?', ['blueberry pancakes','his eyes','other students','the questions'],3],
+    ['What problem did Blake have while taking the test?', ['Other students were chatting so loudly.',"He wasn't able to understand the questions.",'His teacher forgot to pass out the test.','The questions were too hard.'],1],
+    ['What did Blake do after he took the test?', ['He ate some pancakes.','He wrote his name on the test.','He chatted with other students.','He got out of the classroom.'],3],
+    ['Why did Blake forget to put his name on the test?', ['He got so stressed out by the test.',"He didn't sleep at all before the test.","He couldn't remember his own name.",'He felt helpless during the test.'],0],
+    ['What can be inferred about Blake?', ['He usually does not get enough sleep.','He always has blueberry pancakes for breakfast.','He is often unprepared for school exams.','He will try to get rid of his stress and relax.'],3]
+  ]
+];
+const vocab = [
+['Emily wanted to go and ______ on the beach instead of work.',['affect','relax','influence','fail'],1],
+['The ____________ of wild animals was the main focus of her research.',['failure','observation','personality','patient'],1],
+['The team played more ___________ to win the game.',['ambitiously','unfortunately','necessarily','importantly'],0],
+['This project will decide the success or _______________ of the business.',['relaxation','failure','observation','nature'],1],
+['Joan becomes ________________ when she is kept waiting for too long.',['healthy','affective','impatient','ambitious'],2],
+['It is bad ________________ to speak loudly in the library.',['disease','lifestyle','observation','manners'],3],
+["Ryan was sent to the principal's office because of his bad _____________ in class.",['patient','disease','lifestyle','behavior'],3],
+['Emily waited ________ for her test score to come out.',['easily','ultimately','impatiently','promptly'],2],
+['Sophia was completely ____________ for the test because she forgot about it.',['ambitious','behavioral','useful','unprepared'],3],
+['Human beings cannot ____________ underwater like fish.',['pound','focus','breathe','discard'],2],
+["Mindy couldn't _______ on her homework while her brother was practicing the drums.",['breathe','focus','pound','discard'],1],
+['Mina shook with __________. She was the first one to sing for the contest.',['breath','nervousness','final exam','disease'],1],
+["Liam can't go to the party because he needs to _________ for the test tomorrow.",['beat','prepare','pound','discard'],1],
+['After running for five minutes, Cassie had to rest because she was out of __________.',['breath','final exam','behavior','manners'],0],
+["Freddy's mom <u>observed</u> him from outside his hospital room.",['monitored','influenced','failed','relaxed'],0],
+['Maggie has a quiet and calm <u>personality</u>.',['failure','nature','relaxation','observation'],1],
+['Children are largely <u>affected</u> by their parents.',['monitored','relaxed','failed','influenced'],3],
+['Before the test, Sarah was feeling very <u>stressed</u> and tired.',['ambitious','healthy','behavioral','tense'],3],
+['Katie spends a lot of time in the hospital because of her <u>disease</u>.',['lifestyle','failure','illness','conduct'],2],
+['Patricia could <u>focus</u> on her work in the library.',['succeed','beat','concentrate','discard'],2]
+];
+const grammar = [
+['The weather _____ very nice yesterday.',['is','was','were','are'],1],['We _____ in the park last night.',['was','are','were','is'],2],['My sister _____ a letter to her teacher last week.',['writes','was write','wrote','write'],2],['I _____ a shower when you called me.',['am taking','was taking','were taking','was take'],1],['Julie _____ me the truth now.',['am not telling','are not telling','is not telling','was not telling'],2],['She _____ guitar lessons this spring.',['will take not','won’t take','won’t taking','will takes'],1],['The bookstore _____ yesterday.',['does not open','did not open','doesn’t opened','didn’t opened'],1],['Was _____ at the party last Sunday?',['you','they','Mark','Jane and Tim'],2],['A: Was the soccer game exciting?<br>B: _____. It was boring.',['Yes, it is','No, they weren’t','Yes, we were','No, it wasn’t'],3],['Kelly _____ pancakes last night.',['eats','ate','eat','eated'],1],['Three dogs _____ on the grass now.',['are lying','is lying','are lie','are lieing'],0],['Lia and I _____ an essay at that time.',['are writing','was writing','were writing','were writeing'],2],['We are _____ snowboarding this weekend.',['going go','go to going','go','going to go'],3],["I'm _____ attend the meeting tomorrow.",['not going to','going not','not going','going not to'],0],['Bring your umbrella. It _____ today.',['may raining','may rains','won’t rain','may rain'],3],["There's no school tomorrow. So, we _____ up late tonight.",['can staying','can stay','may stay','can’t stay'],1],['She _____ home late last night.<br>They _____ at the station 10 minutes ago.',['came - arrived','comes - arrive','comed - arrived','came – arrives'],0],['Ted and I _____ in the school library now.<br>The man _____ away from the police right now.',['study – is runing','are studying – was running','am studying – is running','are studying – is running'],3],['They _____ a yoga lesson one hour ago.<br>I _____ lunch when Angela visited me.',['was taking – were having','were taking – was having','took – am having','are taking – had'],1],['A: _____ you _____ buy the concert tickets?<br>B: No, I\'m not. They\'re too expensive.',['Are – go','Do - go','Will – going to','Are – going to'],3]
+];
+function renderQuestions(target,data,start=1){const el=document.getElementById(target);data.forEach((q,i)=>{const box=document.createElement('div');box.className='question';box.innerHTML=`<div class="qtext">${start+i}. ${q[0]}</div><div class="choices">${q[1].map((c,j)=>`<div class="choice ${j===q[2]?'correct':''}">${String.fromCharCode(65+j)}) ${c}</div>`).join('')}</div>`;el.appendChild(box);});}
+renderQuestions('r1',readingSets[0],1);renderQuestions('r2',readingSets[1],6);renderQuestions('r3',readingSets[2],11);
+document.getElementById('vqs').insertAdjacentHTML('beforeend','<div class="instructions">Choose the correct answer for the blank.</div>');renderQuestions('vqs',vocab.slice(0,14),1);document.getElementById('vqs').insertAdjacentHTML('beforeend','<div class="instructions">Choose the answer that has the same meaning as the underlined word(s).</div>');renderQuestions('vqs',vocab.slice(14),15);
+document.getElementById('gqs').insertAdjacentHTML('beforeend','<div class="instructions">Choose the answer that best completes the sentence.</div>');renderQuestions('gqs',grammar.slice(0,16),1);document.getElementById('gqs').insertAdjacentHTML('beforeend','<div class="instructions">Choose the answer that best completes each sentence.</div>');renderQuestions('gqs',grammar.slice(16),17);
+
+// 화면/인쇄 글자 크기 조절 및 인쇄 미리보기
+let docFont = +(localStorage.getItem('nona1_doc_font') || 16);
+let printFont = +(localStorage.getItem('nona1_print_font') || 10.5);
+const fontLabel=document.getElementById('fontLabel'), printFontLabel=document.getElementById('printFontLabel');
+function applyFonts(){
+  document.documentElement.style.setProperty('--doc-font',docFont+'px');
+  document.documentElement.style.setProperty('--print-font',printFont+'pt');
+  fontLabel.textContent=Math.round(docFont/16*100)+'%';
+  printFontLabel.textContent=printFont.toFixed(1)+'pt';
+  localStorage.setItem('nona1_doc_font',docFont);
+  localStorage.setItem('nona1_print_font',printFont);
+}
+document.getElementById('fontDown').onclick=()=>{docFont=Math.max(12,docFont-1);applyFonts();};
+document.getElementById('fontUp').onclick=()=>{docFont=Math.min(24,docFont+1);applyFonts();};
+document.getElementById('fontReset').onclick=()=>{docFont=16;applyFonts();};
+document.getElementById('printFontDown').onclick=()=>{printFont=Math.max(7.5,+(printFont-.5).toFixed(1));applyFonts();};
+document.getElementById('printFontUp').onclick=()=>{printFont=Math.min(14,+(printFont+.5).toFixed(1));applyFonts();};
+const previewBtn=document.getElementById('printPreview');
+previewBtn.onclick=()=>{document.body.classList.toggle('print-preview');previewBtn.classList.toggle('active');previewBtn.textContent=document.body.classList.contains('print-preview')?'인쇄용 보기 해제':'인쇄용 보기';setTimeout(resizeCanvas,50);};
+applyFonts();
+
+// 인쇄 1단 / 2단
+let printColumns = +(localStorage.getItem('nona1_print_columns') || 1);
+const oneColBtn = document.getElementById('printOneCol');
+const twoColBtn = document.getElementById('printTwoCol');
+function applyPrintColumns(){
+  document.body.classList.toggle('print-two-col', printColumns === 2);
+  oneColBtn.classList.toggle('active', printColumns === 1);
+  twoColBtn.classList.toggle('active', printColumns === 2);
+  localStorage.setItem('nona1_print_columns', String(printColumns));
+  setTimeout(resizeCanvas, 50);
+}
+oneColBtn.onclick=()=>{printColumns=1;applyPrintColumns();};
+twoColBtn.onclick=()=>{printColumns=2;applyPrintColumns();};
+applyPrintColumns();
+
+// 상단 메뉴 숨기기 / 다시 보기
+const hideMenuBtn = document.getElementById('hideMenu');
+const menuRevealBtn = document.getElementById('menuReveal');
+hideMenuBtn.onclick=()=>document.body.classList.add('menu-hidden');
+menuRevealBtn.onclick=()=>document.body.classList.remove('menu-hidden');
+
+document.getElementById('showAns').onclick=()=>document.querySelectorAll('.correct').forEach(x=>x.classList.add('show'));
+document.getElementById('hideAns').onclick=()=>document.querySelectorAll('.correct').forEach(x=>x.classList.remove('show'));
+document.getElementById('jump').onchange=e=>{if(e.target.value) document.getElementById(e.target.value).scrollIntoView({behavior:'smooth'});e.target.value='';};
+let zoom=1; const stage=document.getElementById('stage'), zl=document.getElementById('zoomLabel');
+function setZoom(z){zoom=Math.max(.5,Math.min(2,z));stage.style.transform=`scale(${zoom})`;stage.style.marginBottom=`${(stage.offsetHeight*(zoom-1))}px`;zl.textContent=Math.round(zoom*100)+'%';}
+document.getElementById('zoomIn').onclick=()=>setZoom(zoom+.1);document.getElementById('zoomOut').onclick=()=>setZoom(zoom-.1);document.getElementById('zoom100').onclick=()=>setZoom(1);document.getElementById('fitWidth').onclick=()=>{const w=document.getElementById('workspace').clientWidth-36;setZoom(Math.min(1,w/stage.offsetWidth));};
+document.getElementById('fullscreen').onclick=()=>{if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.();};
+
+const canvas=document.getElementById('drawCanvas'),paper=document.getElementById('paper'),ctx=canvas.getContext('2d');let tool='select',strokes=[],redoStack=[],drawing=false,current=null,inkVisible=true;
+function resizeCanvas(){const dpr=window.devicePixelRatio||1;canvas.width=Math.round(paper.scrollWidth*dpr);canvas.height=Math.round(paper.scrollHeight*dpr);canvas.style.width=paper.scrollWidth+'px';canvas.style.height=paper.scrollHeight+'px';ctx.setTransform(dpr,0,0,dpr,0,0);redraw();}
+function redraw(){ctx.clearRect(0,0,paper.scrollWidth,paper.scrollHeight);if(!inkVisible)return;ctx.lineCap='round';ctx.lineJoin='round';for(const s of strokes){ctx.globalCompositeOperation=s.tool==='eraser'?'destination-out':'source-over';ctx.strokeStyle='#111';ctx.lineWidth=s.size;ctx.beginPath();s.points.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.stroke();}ctx.globalCompositeOperation='source-over';}
+function save(){localStorage.setItem('nona1_mt2_review_strokes',JSON.stringify(strokes));}
+try{strokes=JSON.parse(localStorage.getItem('nona1_mt2_review_strokes')||'[]')}catch(e){strokes=[]}
+function setTool(t){tool=t;canvas.style.pointerEvents=t==='select'?'none':'auto';['selectTool','penTool','eraserTool'].forEach(id=>document.getElementById(id).classList.remove('active'));document.getElementById(t==='select'?'selectTool':t==='pen'?'penTool':'eraserTool').classList.add('active');}
+document.getElementById('selectTool').onclick=()=>setTool('select');document.getElementById('penTool').onclick=()=>setTool('pen');document.getElementById('eraserTool').onclick=()=>setTool('eraser');
+function pos(e){const r=canvas.getBoundingClientRect();return{x:(e.clientX-r.left)/zoom,y:(e.clientY-r.top)/zoom};}
+canvas.addEventListener('pointerdown',e=>{drawing=true;canvas.setPointerCapture(e.pointerId);current={tool,size:tool==='eraser'?Math.max(18,+document.getElementById('penSize').value*4):+document.getElementById('penSize').value,points:[pos(e)]};strokes.push(current);redoStack=[];redraw();});
+canvas.addEventListener('pointermove',e=>{if(!drawing)return;current.points.push(pos(e));redraw();});
+canvas.addEventListener('pointerup',()=>{drawing=false;save();});canvas.addEventListener('pointercancel',()=>{drawing=false;save();});
+document.getElementById('undo').onclick=()=>{if(strokes.length){redoStack.push(strokes.pop());save();redraw();}};document.getElementById('redo').onclick=()=>{if(redoStack.length){strokes.push(redoStack.pop());save();redraw();}};document.getElementById('clear').onclick=()=>{if(confirm('저장된 필기를 모두 지울까요?')){strokes=[];redoStack=[];save();redraw();}};document.getElementById('hideInk').onclick=()=>{inkVisible=false;redraw();};document.getElementById('showInk').onclick=()=>{inkVisible=true;redraw();};
+window.addEventListener('resize',()=>setTimeout(resizeCanvas,100));
+new ResizeObserver(()=>resizeCanvas()).observe(paper);resizeCanvas();
+</script>
+</body></html>
