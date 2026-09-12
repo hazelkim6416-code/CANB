@@ -98,6 +98,14 @@
     body.print-two-col h2,
     body.print-two-col h3{break-inside:avoid}
   }
+
+  /* 일반 사용자 복사/드래그 방지 */
+  #paper{
+    user-select:none;
+    -webkit-user-select:none;
+    -webkit-touch-callout:none;
+  }
+
 </style>
 </head>
 <body>
@@ -284,5 +292,20 @@ canvas.addEventListener('pointerup',()=>{drawing=false;save();});canvas.addEvent
 document.getElementById('undo').onclick=()=>{if(strokes.length){redoStack.push(strokes.pop());save();redraw();}};document.getElementById('redo').onclick=()=>{if(redoStack.length){strokes.push(redoStack.pop());save();redraw();}};document.getElementById('clear').onclick=()=>{if(confirm('저장된 필기를 모두 지울까요?')){strokes=[];redoStack=[];save();redraw();}};document.getElementById('hideInk').onclick=()=>{inkVisible=false;redraw();};document.getElementById('showInk').onclick=()=>{inkVisible=true;redraw();};
 window.addEventListener('resize',()=>setTimeout(resizeCanvas,100));
 new ResizeObserver(()=>resizeCanvas()).observe(paper);resizeCanvas();
+
+// 일반적인 복사 및 우클릭 방지 (인쇄/필기 기능은 유지)
+document.addEventListener('copy', e => {
+  if (e.target.closest && e.target.closest('#paper')) e.preventDefault();
+});
+document.addEventListener('cut', e => {
+  if (e.target.closest && e.target.closest('#paper')) e.preventDefault();
+});
+document.addEventListener('contextmenu', e => {
+  if (e.target.closest && e.target.closest('#paper')) e.preventDefault();
+});
+document.addEventListener('dragstart', e => {
+  if (e.target.closest && e.target.closest('#paper')) e.preventDefault();
+});
+
 </script>
 </body></html>
