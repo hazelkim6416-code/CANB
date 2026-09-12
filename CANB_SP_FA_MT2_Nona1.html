@@ -307,5 +307,34 @@ document.addEventListener('dragstart', e => {
   if (e.target.closest && e.target.closest('#paper')) e.preventDefault();
 });
 
+
+// 더 강한 복사/선택 방지
+document.addEventListener('selectstart', e => {
+  if (e.target.closest && e.target.closest('#paper')) e.preventDefault();
+});
+
+document.addEventListener('copy', e => {
+  e.preventDefault();
+});
+
+document.addEventListener('cut', e => {
+  e.preventDefault();
+});
+
+document.addEventListener('contextmenu', e => {
+  if (e.target.closest && e.target.closest('#paper')) e.preventDefault();
+});
+
+document.addEventListener('dragstart', e => {
+  if (e.target.closest && e.target.closest('#paper')) e.preventDefault();
+});
+
+document.addEventListener('keydown', e => {
+  const key = e.key.toLowerCase();
+  if ((e.ctrlKey || e.metaKey) && (key === 'c' || key === 'x' || key === 'a' || key === 's')) {
+    e.preventDefault();
+  }
+});
+
 </script>
 </body></html>
