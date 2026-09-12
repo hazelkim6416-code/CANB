@@ -17,6 +17,22 @@ h2{font-size:25px;margin:34px 0 14px;padding:9px 12px;background:#e5e7eb;border-
 .vocabimg{display:block;max-width:210px;max-height:180px;object-fit:contain;margin:7px 0 9px 8px;border-radius:4px}.section{scroll-margin-top:120px}
 #menuReveal{display:none;position:fixed;top:10px;right:12px;z-index:50;border:1px solid #cfd3da;background:#fff;border-radius:8px;padding:7px 11px;box-shadow:0 2px 10px rgba(0,0,0,.12);cursor:pointer}
 body.menu-hidden .topbar{display:none}body.menu-hidden #menuReveal{display:block}
+
+body.screen-two-col:not(.print-preview) #paper{
+  column-count:2;
+  column-gap:28px;
+  column-rule:1px solid #e5e7eb;
+}
+body.screen-two-col:not(.print-preview) .dochead{
+  column-span:all;
+}
+body.screen-two-col:not(.print-preview) .question,
+body.screen-two-col:not(.print-preview) .passage,
+body.screen-two-col:not(.print-preview) h2,
+body.screen-two-col:not(.print-preview) h3{
+  break-inside:avoid;
+}
+
 .print-preview .workspace{background:#d1d5db;padding:14px}.print-preview #stage{width:794px;max-width:100%}.print-preview #paper{padding:10mm 11mm 14mm;box-shadow:0 3px 16px rgba(0,0,0,.16);font-size:var(--print-font);min-height:1123px}
 .print-preview .passage{line-height:1.4;padding:9px 11px;margin:6px 0 9px}.print-preview .question{margin:8px 0 10px;line-height:1.34}.print-preview .vocabimg{max-width:150px;max-height:120px}.print-preview h2{margin:18px 0 8px;padding:6px 9px;font-size:20px}
 .print-preview.print-two-col #paper{column-count:2;column-gap:9mm;column-rule:1px solid #e5e7eb}.print-preview.print-two-col .dochead{column-span:all}.print-preview.print-two-col .question,.print-preview.print-two-col .passage,.print-preview.print-two-col h2,.print-preview.print-two-col h3{break-inside:avoid}
@@ -29,7 +45,7 @@ body.print-two-col #paper{column-count:2;column-gap:8mm;column-rule:0}body.print
 }
 </style></head><body>
 <div class="topbar"><div class="bar-row"><div class="title">Hexa 1 MT1 Review</div>
-<button id="printPreview">인쇄용 보기</button><button onclick="window.print()">인쇄</button><span>인쇄 레이아웃</span><button id="printOneCol" class="active">1단</button><button id="printTwoCol">2단</button><div class="toolsep"></div><button id="hideMenu">메뉴 숨기기</button><div class="toolsep"></div>
+<button id="printPreview">인쇄용 보기</button><button onclick="window.print()">인쇄</button><span>화면 레이아웃</span><button id="screenOneCol" class="active">1단</button><button id="screenTwoCol">2단</button><span>인쇄 레이아웃</span><button id="printOneCol" class="active">1단</button><button id="printTwoCol">2단</button><div class="toolsep"></div><button id="hideMenu">메뉴 숨기기</button><div class="toolsep"></div>
 <span>화면 글자</span><button id="fontDown">−</button><span id="fontLabel" class="fontlabel">100%</span><button id="fontUp">+</button><button id="fontReset">기본</button><span>인쇄 글자</span><button id="printFontDown">−</button><span id="printFontLabel" class="fontlabel">10.5pt</span><button id="printFontUp">+</button>
 <select id="jump"><option value="">메뉴</option><option value="reading">Reading</option><option value="vocab">Vocabulary</option></select><div class="toolsep"></div><button id="showAns">전체 정답</button><button id="hideAns">정답 숨기기</button><div class="toolsep"></div>
 <button id="zoomOut">−</button><span id="zoomLabel" class="zoomlabel">100%</span><button id="zoomIn">+</button><button id="zoom100">100%</button><button id="fitWidth">폭 맞춤</button><button id="fullscreen">전체 화면</button></div>
@@ -166,6 +182,20 @@ let docFont=+(localStorage.getItem('hexa1_doc_font')||16),printFont=+(localStora
 function applyFonts(){document.documentElement.style.setProperty('--doc-font',docFont+'px');document.documentElement.style.setProperty('--print-font',printFont+'pt');fontLabel.textContent=Math.round(docFont/16*100)+'%';printFontLabel.textContent=printFont.toFixed(1)+'pt';localStorage.setItem('hexa1_doc_font',docFont);localStorage.setItem('hexa1_print_font',printFont)}
 fontDown.onclick=()=>{docFont=Math.max(12,docFont-1);applyFonts()};fontUp.onclick=()=>{docFont=Math.min(24,docFont+1);applyFonts()};fontReset.onclick=()=>{docFont=16;applyFonts()};printFontDown.onclick=()=>{printFont=Math.max(7.5,+(printFont-.5).toFixed(1));applyFonts()};printFontUp.onclick=()=>{printFont=Math.min(14,+(printFont+.5).toFixed(1));applyFonts()};applyFonts();
 printPreview.onclick=()=>{document.body.classList.toggle('print-preview');printPreview.classList.toggle('active');printPreview.textContent=document.body.classList.contains('print-preview')?'인쇄용 보기 해제':'인쇄용 보기';setTimeout(resizeCanvas,50)};
+
+// 화면 1단 / 2단
+let screenColumns=+(localStorage.getItem('hexa1_screen_columns')||1);
+function applyScreenColumns(){
+  document.body.classList.toggle('screen-two-col',screenColumns===2);
+  screenOneCol.classList.toggle('active',screenColumns===1);
+  screenTwoCol.classList.toggle('active',screenColumns===2);
+  localStorage.setItem('hexa1_screen_columns',String(screenColumns));
+  setTimeout(resizeCanvas,50);
+}
+screenOneCol.onclick=()=>{screenColumns=1;applyScreenColumns()};
+screenTwoCol.onclick=()=>{screenColumns=2;applyScreenColumns()};
+applyScreenColumns();
+
 let printColumns=+(localStorage.getItem('hexa1_print_columns')||1);function applyPrintColumns(){document.body.classList.toggle('print-two-col',printColumns===2);printOneCol.classList.toggle('active',printColumns===1);printTwoCol.classList.toggle('active',printColumns===2);localStorage.setItem('hexa1_print_columns',String(printColumns));setTimeout(resizeCanvas,50)}printOneCol.onclick=()=>{printColumns=1;applyPrintColumns()};printTwoCol.onclick=()=>{printColumns=2;applyPrintColumns()};applyPrintColumns();
 hideMenu.onclick=()=>document.body.classList.add('menu-hidden');menuReveal.onclick=()=>document.body.classList.remove('menu-hidden');
 showAns.onclick=()=>document.querySelectorAll('.correct').forEach(x=>x.classList.add('show'));hideAns.onclick=()=>document.querySelectorAll('.correct').forEach(x=>x.classList.remove('show'));
