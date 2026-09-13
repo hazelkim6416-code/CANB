@@ -160,6 +160,9 @@ body.screen-two-col:not(.print-preview) .reading-unit{break-inside:avoid;display
 .choice-text{flex:1 1 auto!important;min-width:0!important}
 @media(max-width:700px){.choices{grid-template-columns:1fr!important}}
 @media print{.choices{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+
+/* source underline emphasis */
+#vocab .qtext u{text-decoration:underline!important;text-decoration-thickness:1.5px!important;text-underline-offset:2px!important}
 </style></head><body>
 <div class="topbar"><div class="bar-row"><div class="title">Nona 2 MT1 Review</div>
 <button id="printPreview">인쇄용 보기</button><button onclick="window.print()">인쇄</button><span>화면 레이아웃</span><button class="active" id="screenOneCol">1단</button><button id="screenTwoCol">2단</button><span>인쇄 레이아웃</span><button class="active" id="printOneCol">1단</button><button id="printTwoCol">2단</button><div class="toolsep"></div><button id="hideMenu">메뉴 숨기기</button><div class="toolsep"></div>
