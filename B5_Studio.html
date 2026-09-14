@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>B5 해석지 스튜디오</title>
+  <style>
+    :root{
+      --key:#c4171d;
+      --ink:#181818;
+      --muted:#6f6f6f;
+      --line:#d9d9d9;
+      --panel:#ffffff;
+      --bg:#f4f5f7;
+      --soft:#f9f9fa;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Arial,"Noto Sans KR","Malgun Gothic",sans-serif;
+      color:var(--ink);
+      background:var(--bg);
+    }
+    .app{max-width:1500px;margin:0 auto;padding:22px}
+    .topbar{
+      display:flex;justify-content:space-between;gap:18px;align-items:flex-end;
+      margin-bottom:18px;
+    }
+    .brand-small{font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--key);text-transform:uppercase}
+    h1{margin:5px 0 3px;font-size:30px;line-height:1.15}
+    .subtitle{color:var(--muted);font-size:13px;line-height:1.55}
+    .stats{font-size:13px;color:var(--muted);text-align:right}
+    .layout{display:grid;grid-template-columns:minmax(360px,520px) 1fr;gap:18px;align-items:start}
+    .panel{
+      background:var(--panel);border:1px solid #e3e4e7;border-radius:14px;
+      box-shadow:0 4px 18px rgba(0,0,0,.045);overflow:hidden;
+    }
+    .section{padding:18px;border-bottom:1px solid #ececee}
+    .section:last-child{border-bottom:0}
+    .section h2{font-size:14px;margin:0 0 12px;display:flex;justify-content:space-between;align-items:center}
+    .hint{font-size:11px;font-weight:400;color:var(--muted)}
+    label{display:block;font-size:12px;font-weight:700;margin:0 0 6px}
+    input[type="text"],input[type="date"],input[type="number"],select,textarea{
+      width:100%;border:1px solid #d8d9dd;border-radius:8px;background:#fff;color:#222;
+      padding:10px 11px;font:inherit;font-size:13px;outline:none;
+    }
+    textarea{resize:vertical;min-height:90px;line-height:1.5}
+    textarea.passage{min-height:240px;font-family:Georgia,"Times New Roman",serif;font-size:14px}
+    input:focus,select:focus,textarea:focus{border-color:var(--key);box-shadow:0 0 0 3px color-mix(in srgb,var(--key) 10%,transparent)}
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .field{margin-bottom:11px}.field:last-child{margin-bottom:0}
+    .toolbar{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap}
+    .toolbtn,.btn{
+      appearance:none;border:1px solid #d6d6d9;background:#fff;border-radius:8px;padding:8px 10px;
+      font-weight:700;font-size:12px;cursor:pointer;color:#222;
+    }
+    .toolbtn:hover,.btn:hover{background:#f4f4f5}
+    .btn.primary{background:var(--key);border-color:var(--key);color:#fff}
+    .btn.dark{background:#1e1e1f;color:#fff;border-color:#1e1e1f}
+    .actions{display:flex;gap:8px;flex-wrap:wrap}
+    .range-row{display:grid;grid-template-columns:1fr 64px;gap:10px;align-items:center}
+    input[type="range"]{width:100%;accent-color:var(--key)}
+    .check-row{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+    .check-row label{display:flex;gap:7px;align-items:center;margin:0;font-weight:600}
+    input[type="checkbox"]{accent-color:var(--key)}
+    .color-wrap{display:grid;grid-template-columns:46px 1fr;gap:8px}
+    input[type="color"]{width:46px;height:38px;padding:3px;border:1px solid #d8d9dd;border-radius:8px;background:#fff}
+    .preview-shell{position:sticky;top:14px}
+    .preview-head{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border-bottom:1px solid #e7e7e9;background:#fff}
+    .preview-head strong{font-size:13px}.preview-head span{font-size:11px;color:var(--muted)}
+    .preview-area{padding:20px;display:flex;gap:18px;flex-wrap:wrap;justify-content:center;background:#e9eaed;max-height:calc(100vh - 100px);overflow:auto}
+    .sheet{
+      width:182mm;height:257mm;background:#fff;box-shadow:0 8px 28px rgba(0,0,0,.12);
+      position:relative;padding:11.5mm 12mm 10mm;overflow:hidden;flex:none;
+      color:#101010;
+    }
+    .sheet .doc-head{border-bottom:1.7px solid var(--key);padding-bottom:4.5mm;margin-bottom:4mm}
+    .doc-kicker{font-size:8.5pt;font-weight:800;color:var(--key);letter-spacing:.08em;text-transform:uppercase;margin-bottom:1.2mm}
+    .doc-title{font-size:17pt;line-height:1.15;font-weight:800;margin:0}
+    .doc-unit{font-size:9.5pt;font-weight:700;margin-top:1.6mm}
+    .meta-row{display:flex;justify-content:space-between;gap:8px;margin-top:3mm;font-size:8pt;color:#333}
+    .meta-left,.meta-right{display:flex;gap:10px;flex-wrap:wrap}
+    .meta-label{font-weight:800;color:#111}
+    .translation-list{display:flex;flex-direction:column;gap:0}
+    .sentence-block{break-inside:avoid;border-bottom:1px solid #ddd;padding:2.5mm 0 2.7mm}
+    .sentence-line{display:grid;grid-template-columns:6mm 1fr;gap:2.2mm;align-items:start}
+    .num{font-size:8.5pt;font-weight:800;color:var(--key);padding-top:.3mm;text-align:right}
+    .english{font-family:Georgia,"Times New Roman",serif;font-size:10.4pt;line-height:1.5;font-weight:500}
+    .answer-area{margin-left:8.2mm;margin-top:2mm;display:flex;flex-direction:column;justify-content:space-between;min-height:11mm}
+    .answer-line{height:5.4mm;border-bottom:.45pt solid #b9b9b9}
+    .answer-area.dot .answer-line{border-bottom-style:dotted}
+    .answer-area.none .answer-line{border-bottom-color:transparent}
+    .homework{margin-top:3.6mm;border:1.1px solid #292929;border-radius:2.2mm;padding:3mm 3.5mm;break-inside:avoid}
+    .homework-title{font-size:9.2pt;font-weight:900;display:flex;align-items:center;gap:2mm;margin-bottom:1.5mm}
+    .homework-title::before{content:"";width:2mm;height:2mm;background:var(--key);border-radius:50%}
+    .homework-body{font-size:8.7pt;line-height:1.45;white-space:pre-wrap}
+    .after-homework{font-size:8pt;line-height:1.45;color:#4a4a4a;margin-top:1.8mm;padding-top:1.8mm;border-top:.4pt solid #d8d8d8;white-space:pre-wrap}
+    .footer{position:absolute;left:12mm;right:12mm;bottom:5.2mm;display:flex;justify-content:space-between;gap:8px;font-size:7pt;color:#777}
+    .page-no{font-weight:800;color:#444}
+    .empty-note{font-size:11px;color:#777;padding:20px;text-align:center}
+    .pill{display:inline-flex;padding:3px 7px;border-radius:999px;background:#f0f0f1;font-size:10px;color:#555}
+    @media(max-width:1050px){
+      .layout{grid-template-columns:1fr}.preview-shell{position:static}.preview-area{max-height:none}
+    }
+    @media(max-width:700px){.app{padding:10px}.grid2,.grid3{grid-template-columns:1fr}.sheet{transform:scale(.72);transform-origin:top center;margin-bottom:-72mm}.preview-area{padding:10px;gap:0}}
+    @page{size:JIS-B5 portrait;margin:0}
+    @media print{
+      body{background:#fff}.app>.topbar,.controls,.preview-head{display:none!important}.layout{display:block}.panel{border:0;box-shadow:none}.preview-area{padding:0;background:#fff;display:block;max-height:none;overflow:visible}.sheet{box-shadow:none;page-break-after:always;margin:0;width:182mm;height:257mm}.sheet:last-child{page-break-after:auto}
+    }
+  </style>
+</head>
+<body>
+<div class="app">
+  <div class="topbar">
+    <div>
+      <div class="brand-small">CANB Worksheet</div>
+      <h1>B5 해석지 스튜디오</h1>
+      <div class="subtitle">영어 지문을 문장별로 나누고, 문장 길이에 따라 해석 공간을 자동 배분해 B5 인쇄물로 정리합니다.</div>
+    </div>
+    <div class="stats"><strong id="sentenceCount">0</strong>문장 · <span id="pageCount">1</span>페이지 예상</div>
+  </div>
+
+  <div class="layout">
+    <div class="panel controls">
+      <div class="section">
+        <h2>영어 지문 <span class="hint">English passage</span></h2>
+        <div class="toolbar">
+          <button class="toolbtn" type="button" onclick="wrapSelection('**','**')"><b>B</b></button>
+          <button class="toolbtn" type="button" onclick="wrapSelection('*','*')"><i>I</i></button>
+          <button class="toolbtn" type="button" onclick="wrapSelection('__','__')"><u>U</u></button>
+          <button class="toolbtn" type="button" onclick="mergeSelectedLines()">&lt;&gt; 선택 줄 합치기</button>
+        </div>
+        <textarea id="passage" class="passage" placeholder="영어 지문을 붙여 넣으세요. 문장 끝의 . ? ! 를 기준으로 자동 분리합니다."></textarea>
+        <div class="hint" style="margin-top:7px">서식: <b>**굵게**</b> · <i>*기울임*</i> · <u>__밑줄__</u> · 줄바꿈이 있는 경우에도 문장부호를 기준으로 다시 정리됩니다.</div>
+      </div>
+
+      <div class="section">
+        <h2>Writing space <span class="hint">문장별 공간 배분</span></h2>
+        <div class="field">
+          <label>필기 공간</label>
+          <div class="range-row">
+            <input id="spaceScale" type="range" min="80" max="160" value="110" step="5" />
+            <span class="pill" id="spaceLabel">110%</span>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>영문 크기</label><select id="fontSize"><option value="9.6">작게</option><option value="10.4" selected>기본</option><option value="11.2">크게</option></select></div>
+          <div class="field"><label>답안선 스타일</label><select id="lineStyle"><option value="solid" selected>실선</option><option value="dot">점선</option><option value="none">선 없음</option></select></div>
+        </div>
+        <div class="field">
+          <label>키 컬러</label>
+          <div class="color-wrap"><input id="keyColor" type="color" value="#c4171d" /><input id="keyColorText" type="text" value="#C4171D" /></div>
+        </div>
+        <div class="check-row">
+          <label><input id="showNumber" type="checkbox" checked /> 문장 번호</label>
+          <label><input id="showFooter" type="checkbox" checked /> 바닥글</label>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>문서 정보</h2>
+        <div class="grid2">
+          <div class="field"><label>제목</label><input id="title" type="text" value="Translation Worksheet" /></div>
+          <div class="field"><label>Teacher <span style="color:var(--key)">★ 직접 설정</span></label><input id="teacher" type="text" placeholder="예: Hazel Kim" /></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>분류</label><input id="category" type="text" value="Reading" /></div>
+          <div class="field"><label>학기</label><input id="term" type="text" value="26FA" /></div>
+        </div>
+        <div class="field"><label>단원 제목</label><input id="unit" type="text" placeholder="예: Octa 1 · Unit 2 Part 3" /></div>
+        <div class="grid2">
+          <div class="field"><label>반 (선택)</label><input id="className" type="text" placeholder="예: Octa 1 MWF" /></div>
+          <div class="field"><label>날짜 (선택)</label><input id="date" type="text" placeholder="예: 2026. 09. 21." /></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Homework</h2>
+        <div class="field"><label>숙제 제목</label><input id="homeworkTitle" type="text" value="Homework" /></div>
+        <div class="field"><label>숙제 내용</label><textarea id="homeworkBody" placeholder="예: 오늘 읽은 지문을 한 번 더 읽고, 해석을 완성해 오세요."></textarea></div>
+        <div class="field"><label>숙제 아래 추가 문구 <span style="color:var(--key)">★ 직접 설정</span></label><textarea id="afterHomework" placeholder="예: ※ 모르는 단어는 뜻을 찾아 적어오세요.&#10;※ 다음 수업 전까지 완료해 주세요."></textarea></div>
+        <div class="check-row"><label><input id="showHomework" type="checkbox" checked /> 숙제 박스 표시</label></div>
+      </div>
+
+      <div class="section">
+        <h2>바닥글</h2>
+        <div class="field"><input id="footerText" type="text" value="CANB · Translation Worksheet" /></div>
+      </div>
+
+      <div class="section">
+        <div class="actions">
+          <button class="btn primary" type="button" id="recalc">다시 계산</button>
+          <button class="btn dark" type="button" onclick="window.print()">브라우저 인쇄 / PDF</button>
+          <button class="btn" type="button" id="saveSettings">설정 저장</button>
+          <button class="btn" type="button" id="loadSettings">불러오기</button>
+          <button class="btn" type="button" id="resetSettings">기본 예시</button>
+        </div>
+        <div class="hint" style="margin-top:9px">인쇄 설정: 용지 <b>JIS B5 (182 × 257 mm)</b>, 배율 100%, 머리글/바닥글 끄기 권장.</div>
+      </div>
+    </div>
+
+    <div class="panel preview-shell">
+      <div class="preview-head"><strong>인쇄 미리보기</strong><span>JIS B5 · 자동 페이지 분할</span></div>
+      <div id="preview" class="preview-area"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const ids = ['passage','spaceScale','fontSize','lineStyle','keyColor','keyColorText','showNumber','showFooter','title','teacher','category','term','unit','className','date','homeworkTitle','homeworkBody','afterHomework','showHomework','footerText'];
+
+function esc(s=''){return s.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));}
+function formatInline(s=''){
+  let t=esc(s);
+  t=t.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+  t=t.replace(/__(.+?)__/g,'<u>$1</u>');
+  t=t.replace(/\*(.+?)\*/g,'<em>$1</em>');
+  return t;
+}
+function splitSentences(text){
+  const clean=text.replace(/\r/g,'').replace(/\n+/g,' ').replace(/\s+/g,' ').trim();
+  if(!clean) return [];
+  const protectedText=clean
+    .replace(/\b(Mr|Mrs|Ms|Dr|Prof|St|Jr|Sr)\./gi,'$1§')
+    .replace(/\b([A-Z])\./g,'$1§')
+    .replace(/(\d)\.(\d)/g,'$1§$2');
+  const parts=protectedText.match(/[^.!?]+[.!?]+[”"']?|[^.!?]+$/g)||[];
+  return parts.map(s=>s.replace(/§/g,'.').trim()).filter(Boolean);
+}
+function wordCount(s){return (s.match(/[A-Za-z0-9’'-]+/g)||[]).length;}
+function lineEstimate(s){return Math.max(1, Math.ceil(s.length/72));}
+function answerHeight(s){
+  const scale=Number($('spaceScale').value)/100;
+  const wc=wordCount(s), le=lineEstimate(s);
+  const mm=Math.min(30, Math.max(10, 8 + wc*.22 + le*2.2))*scale;
+  return Math.round(mm*10)/10;
+}
+function approxBlockHeight(s){return 11 + answerHeight(s) + Math.max(0,lineEstimate(s)-1)*4.2;}
+function makePage(){
+  const sh=document.createElement('section');sh.className='sheet';
+  sh.innerHTML='<div class="doc-head"></div><div class="translation-list"></div><div class="footer"></div>';
+  return sh;
+}
+function fillHead(sheet){
+  const teacher=$('teacher').value.trim();
+  const meta=[];
+  if($('category').value.trim()) meta.push(`<span><span class="meta-label">SUBJECT</span> ${esc($('category').value.trim())}</span>`);
+  if($('term').value.trim()) meta.push(`<span><span class="meta-label">TERM</span> ${esc($('term').value.trim())}</span>`);
+  const right=[];
+  if(teacher) right.push(`<span><span class="meta-label">TEACHER</span> ${esc(teacher)}</span>`);
+  if($('className').value.trim()) right.push(`<span><span class="meta-label">CLASS</span> ${esc($('className').value.trim())}</span>`);
+  if($('date').value.trim()) right.push(`<span><span class="meta-label">DATE</span> ${esc($('date').value.trim())}</span>`);
+  sheet.querySelector('.doc-head').innerHTML=`
+    <div class="doc-kicker">CANB Worksheet</div>
+    <div class="doc-title">${esc($('title').value.trim()||'Translation Worksheet')}</div>
+    ${$('unit').value.trim()?`<div class="doc-unit">${esc($('unit').value.trim())}</div>`:''}
+    <div class="meta-row"><div class="meta-left">${meta.join('')}</div><div class="meta-right">${right.join('')}</div></div>`;
+}
+function addFooter(sheet,idx,total){
+  if(!$('showFooter').checked){sheet.querySelector('.footer').style.display='none';return;}
+  sheet.querySelector('.footer').innerHTML=`<span>${esc($('footerText').value.trim())}</span><span class="page-no">${idx} / ${total}</span>`;
+}
+function sentenceHTML(s,i){
+  const h=answerHeight(s);
+  const lines=Math.max(2,Math.floor(h/5.4));
+  return `<div class="sentence-block">
+    <div class="sentence-line">
+      ${$('showNumber').checked?`<div class="num">${i}.</div>`:'<div></div>'}
+      <div class="english" style="font-size:${$('fontSize').value}pt">${formatInline(s)}</div>
+    </div>
+    <div class="answer-area ${$('lineStyle').value}" style="min-height:${h}mm">${Array.from({length:lines},()=>'<div class="answer-line"></div>').join('')}</div>
+  </div>`;
+}
+function homeworkHTML(){
+  if(!$('showHomework').checked) return '';
+  const title=$('homeworkTitle').value.trim()||'Homework';
+  const body=$('homeworkBody').value.trim();
+  const after=$('afterHomework').value.trim();
+  if(!body && !after) return '';
+  return `<div class="homework"><div class="homework-title">${esc(title)}</div>${body?`<div class="homework-body">${esc(body)}</div>`:''}${after?`<div class="after-homework">${esc(after)}</div>`:''}</div>`;
+}
+function render(){
+  document.documentElement.style.setProperty('--key',$('keyColor').value);
+  const sentences=splitSentences($('passage').value);
+  $('sentenceCount').textContent=sentences.length;
+  $('spaceLabel').textContent=$('spaceScale').value+'%';
+  const preview=$('preview');preview.innerHTML='';
+  if(!sentences.length){
+    const p=makePage();fillHead(p);p.querySelector('.translation-list').innerHTML='<div class="empty-note">영어 지문을 입력하면 문장별 해석 공간이 여기에 표시됩니다.</div>'+homeworkHTML();preview.appendChild(p);$('pageCount').textContent='1';addFooter(p,1,1);return;
+  }
+  // usable body budget in rough millimeters. This intentionally leaves head/footer safety margin.
+  const budget=205;
+  let pages=[], page=makePage(), used=0, index=1;fillHead(page);
+  const list=page.querySelector('.translation-list');
+  sentences.forEach(s=>{
+    const h=approxBlockHeight(s);
+    if(used+h>budget && list.children.length){pages.push(page);page=makePage();fillHead(page);used=0;}
+    page.querySelector('.translation-list').insertAdjacentHTML('beforeend',sentenceHTML(s,index++));
+    used+=h;
+  });
+  pages.push(page);
+  const hw=homeworkHTML();
+  if(hw){
+    const hwCost=32 + Math.min(30,($('homeworkBody').value.length+$('afterHomework').value.length)/18);
+    if(used+hwCost>budget){const p=makePage();fillHead(p);p.querySelector('.translation-list').insertAdjacentHTML('beforeend',hw);pages.push(p);}else{pages[pages.length-1].querySelector('.translation-list').insertAdjacentHTML('beforeend',hw);}
+  }
+  $('pageCount').textContent=pages.length;
+  pages.forEach((p,i)=>{addFooter(p,i+1,pages.length);preview.appendChild(p)});
+}
+function wrapSelection(a,b){const t=$('passage'),s=t.selectionStart,e=t.selectionEnd;if(s===e)return;const v=t.value;t.value=v.slice(0,s)+a+v.slice(s,e)+b+v.slice(e);t.focus();t.selectionStart=s+a.length;t.selectionEnd=e+a.length;render();}
+function mergeSelectedLines(){const t=$('passage'),s=t.selectionStart,e=t.selectionEnd;if(s===e)return;const v=t.value;const selected=v.slice(s,e).replace(/\s*\n\s*/g,' ').replace(/\s{2,}/g,' ');t.value=v.slice(0,s)+selected+v.slice(e);t.selectionStart=s;t.selectionEnd=s+selected.length;render();}
+function saveSettings(){const data={};ids.forEach(id=>{const el=$(id);data[id]=el.type==='checkbox'?el.checked:el.value});localStorage.setItem('b5TranslationStudio',JSON.stringify(data));alert('현재 설정을 이 브라우저에 저장했습니다.');}
+function loadSettings(){const raw=localStorage.getItem('b5TranslationStudio');if(!raw){alert('저장된 설정이 없습니다.');return;}const data=JSON.parse(raw);ids.forEach(id=>{if(data[id]===undefined)return;const el=$(id);el.type==='checkbox'?el.checked=data[id]:el.value=data[id]});syncColor('picker');render();}
+function resetSettings(){
+  $('passage').value='Many people think that learning happens only in the classroom. However, we can learn important lessons from everyday experiences. When we pay attention to the world around us, even a small event can teach us something new.';
+  $('spaceScale').value=110;$('fontSize').value='10.4';$('lineStyle').value='solid';$('keyColor').value='#c4171d';$('keyColorText').value='#C4171D';$('showNumber').checked=true;$('showFooter').checked=true;
+  $('title').value='Translation Worksheet';$('teacher').value='Hazel Kim';$('category').value='Reading';$('term').value='26FA';$('unit').value='Octa 1 · Unit 2 Part 3';$('className').value='';$('date').value='2026. 09. 21.';
+  $('homeworkTitle').value='Homework';$('homeworkBody').value='오늘 읽은 지문을 다시 읽고, 문장별 해석을 완성해 오세요.';$('afterHomework').value='※ 모르는 단어는 뜻을 찾아 표시해 오세요.\n※ 다음 수업 전까지 완료해 주세요.';$('showHomework').checked=true;$('footerText').value='CANB · Translation Worksheet';render();
+}
+function syncColor(source){
+  if(source==='picker'){$('keyColorText').value=$('keyColor').value.toUpperCase();}
+  else {let v=$('keyColorText').value.trim();if(/^#[0-9A-Fa-f]{6}$/.test(v))$('keyColor').value=v;}
+}
+ids.forEach(id=>{const el=$(id);el.addEventListener(el.type==='checkbox'||el.tagName==='SELECT'||el.type==='range'||el.type==='color'?'change':'input',()=>{if(id==='keyColor')syncColor('picker');render();});});
+$('keyColorText').addEventListener('change',()=>{syncColor('text');render()});
+$('recalc').addEventListener('click',render);$('saveSettings').addEventListener('click',saveSettings);$('loadSettings').addEventListener('click',loadSettings);$('resetSettings').addEventListener('click',resetSettings);
+resetSettings();
+</script>
+</body>
+</html>
