@@ -280,6 +280,38 @@ body.print-preview.print-two-col #paper{
   }
 }
 
+
+
+/* === v19: keep each exercise heading + its questions together === */
+.exercise-group{
+  display:block !important;
+  break-inside:avoid-column !important;
+  page-break-inside:avoid !important;
+  margin:0 0 14px !important;
+}
+body.screen-two-col:not(.print-preview) .exercise-group > .instructions,
+body.print-preview.print-two-col .exercise-group > .instructions{
+  column-span:none !important;
+  width:auto !important;
+  display:block !important;
+  break-after:avoid !important;
+}
+body.screen-two-col:not(.print-preview) .exercise-group > .question,
+body.print-preview.print-two-col .exercise-group > .question{
+  break-inside:avoid !important;
+}
+@media print{
+  .exercise-group{
+    break-inside:avoid-column !important;
+    page-break-inside:avoid !important;
+  }
+  body.print-two-col .exercise-group > .instructions{
+    column-span:none !important;
+    width:auto !important;
+    display:block !important;
+    break-after:avoid !important;
+  }
+}
 </style></head><body>
 <div class="topbar"><div class="bar-row"><div class="title">SP/FA MT1 [Hepta 2]</div>
 <button id="printPreview">인쇄용 보기</button><button onclick="window.print()">인쇄</button><span>화면 레이아웃</span><button class="active" id="screenOneCol">1단</button><button id="screenTwoCol">2단</button><span>인쇄 레이아웃</span><button class="active" id="printOneCol">1단</button><button id="printTwoCol">2단</button><div class="toolsep"></div><button id="hideMenu">메뉴 숨기기</button><div class="toolsep"></div>
