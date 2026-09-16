@@ -270,6 +270,20 @@ body.print-preview.print-two-col h3{break-inside:avoid !important}
     column-count:2!important;columns:2!important;column-gap:8mm!important;column-rule:0!important;
   }
 }
+
+/* === v18: visible center divider for 2-column layouts === */
+body.screen-two-col:not(.print-preview) #paper{
+  column-rule:1px solid #cfd3da !important;
+}
+body.print-preview.print-two-col #paper{
+  column-rule:1px solid #b8bdc6 !important;
+}
+@media print{
+  body.print-two-col #paper{
+    column-rule:0.35mm solid #b8bdc6 !important;
+  }
+}
+
 </style></head><body>
 <div class="topbar"><div class="bar-row"><div class="title">SP/FA MT1 [Octa 1]</div>
 <button id="printPreview">인쇄용 보기</button><button onclick="window.print()">인쇄</button><span>화면 레이아웃</span><button class="active" id="screenOneCol">1단</button><button id="screenTwoCol">2단</button><span>인쇄 레이아웃</span><button class="active" id="printOneCol">1단</button><button id="printTwoCol">2단</button><div class="toolsep"></div><button id="hideMenu">메뉴 숨기기</button><div class="toolsep"></div>
