@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="ko"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>SP/FA MT1 [Hepta 2]</title><style>
+<title>READi Review Sheet - SP/FA MT1 [Hepta 2]</title><style>
 :root{--bg:#f4f5f7;--ink:#111;--muted:#6b7280;--line:#d8dbe2;--answer:#fff3b0;--doc-font:16px;--print-font:10.5pt}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--ink)}
 .topbar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 1px 5px rgba(0,0,0,.06)}
@@ -199,15 +199,68 @@ body.screen-two-col:not(.print-preview) .reading-unit{break-inside:avoid;display
     margin-right:0 !important;
   }
 }
+
+/* v15: restore real print 1-column / 2-column switching */
+@media print {
+  /* default = print 1 column */
+  #paper{
+    column-count:1 !important;
+    columns:auto !important;
+    column-gap:0 !important;
+    column-rule:0 !important;
+    width:100% !important;
+    max-width:none !important;
+  }
+
+  /* selected print 2-column */
+  body.print-two-col #paper{
+    column-count:2 !important;
+    columns:2 !important;
+    column-gap:8mm !important;
+    column-rule:0 !important;
+  }
+
+  /* Header always stays across the full page */
+  #paper > .dochead{
+    column-span:all !important;
+    width:100% !important;
+  }
+
+  /* In 2-col print, section wrappers must not block multicolumn flow */
+  body.print-two-col #reading,
+  body.print-two-col #vocab,
+  body.print-two-col #grammar{
+    display:contents !important;
+  }
+
+  /* Section title/instructions stay full width, then units/questions flow in 2 cols */
+  body.print-two-col #reading > h2,
+  body.print-two-col #reading > .instructions,
+  body.print-two-col #vocab > h2,
+  body.print-two-col #vocab > .instructions,
+  body.print-two-col #grammar > h2,
+  body.print-two-col #grammar > .instructions{
+    column-span:all !important;
+    display:block !important;
+    width:100% !important;
+  }
+
+  .reading-unit,
+  .question,
+  .passage,
+  h3{
+    break-inside:avoid !important;
+  }
+}
 </style></head><body>
-<div class="topbar"><div class="bar-row"><div class="title">Hepta 2 MT1 Review</div>
+<div class="topbar"><div class="bar-row"><div class="title">SP/FA MT1 [Hepta 2]</div>
 <button id="printPreview">인쇄용 보기</button><button onclick="window.print()">인쇄</button><span>화면 레이아웃</span><button class="active" id="screenOneCol">1단</button><button id="screenTwoCol">2단</button><span>인쇄 레이아웃</span><button class="active" id="printOneCol">1단</button><button id="printTwoCol">2단</button><div class="toolsep"></div><button id="hideMenu">메뉴 숨기기</button><div class="toolsep"></div>
 <span>화면 글자</span><button id="fontDown">−</button><span class="fontlabel" id="fontLabel">100%</span><button id="fontUp">+</button><button id="fontReset">기본</button><span>인쇄 글자</span><button id="printFontDown">−</button><span class="fontlabel" id="printFontLabel">10.5pt</span><button id="printFontUp">+</button>
 <select id="jump"><option value="">메뉴</option><option value="reading">Reading</option><option value="vocab">Vocabulary</option><option value="grammar">Grammar</option></select><div class="toolsep"></div><button id="showAns">전체 정답</button><button id="hideAns">정답 숨기기</button><div class="toolsep"></div>
 <button id="zoomOut">−</button><span class="zoomlabel" id="zoomLabel">100%</span><button id="zoomIn">+</button><button id="zoom100">100%</button><button id="fitWidth">폭 맞춤</button><button id="fullscreen">전체 화면</button></div>
 <div class="bar-row"><button class="active" id="selectTool">선택</button><button id="penTool">펜</button><button id="eraserTool">지우개</button><span>펜 굵기</span><input id="penSize" max="14" min="1" type="range" value="3"/><div class="toolsep"></div><button id="undo">실행 취소</button><button id="redo">다시 실행</button><button id="clear">전체 지우기</button><button id="hideInk">필기 숨기기</button><button id="showInk">필기 보기</button><span class="small">필기는 이 브라우저에만 저장됩니다.</span></div></div>
 <button id="menuReveal">메뉴 보기</button>
-<div class="workspace" id="workspace"><div id="stage"><div id="paper"><canvas id="drawCanvas"></canvas><div class="dochead"><h1>READi Review Sheet</h1><div class="sub">’26 SP MT1 [Hepta 2]</div></div>
+<div class="workspace" id="workspace"><div id="stage"><div id="paper"><canvas id="drawCanvas"></canvas><div class="dochead"><h1>READi Review Sheet</h1><div class="sub">SP/FA MT1 [Hepta 2]</div></div>
 <section id="reading"><h2>Reading</h2><div class="instructions">New GROW Reading 2 U1~U2 · Choose the correct answer.</div>
 <div class="reading-unit"><h3>U1</h3><div class="reading-unit-layout"><div class="passage">It is Joey’s birthday.<br/>His mother has a surprise.<br/>Where are they going?<br/><br/>They get on a bus and find seats.<br/>The bus bounces up and down.<br/>They get off the bus.<br/><br/>Then they take the subway.<br/>The subway moves fast.<br/>They get off the subway.<br/><br/>“We are almost there!” says his mother.<br/>They jump on bikes.<br/>They pedal down a bumpy road.<br/><br/>Joey sees a big sign.<br/>“Welcome to Fun Land Park!” reads Joey.<br/>“Happy birthday!” says his mother.</div><div class="reading-questions">
 <div class="question"><div class="qtext">1. What is the story mainly about?</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">a trip to school</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">Joey's new bike</span></div><div class="choice correct"><span class="choice-label">C)</span><span class="choice-text">Joey’s birthday trip</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">a sunny day</span></div></div></div>
