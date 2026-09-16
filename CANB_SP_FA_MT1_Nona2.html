@@ -37,12 +37,8 @@ body.screen-two-col:not(.print-preview) h3{
 .print-preview .passage{line-height:1.4;padding:9px 11px;margin:6px 0 9px}.print-preview .question{margin:8px 0 10px;line-height:1.34}.print-preview .vocabimg{max-width:150px;max-height:120px}.print-preview h2{margin:18px 0 8px;padding:6px 9px;font-size:20px}
 .print-preview.print-two-col #paper{column-count:2;column-gap:9mm;column-rule:1px solid #e5e7eb}.print-preview.print-two-col .dochead{column-span:all}.print-preview.print-two-col .question,.print-preview.print-two-col .passage,.print-preview.print-two-col h2,.print-preview.print-two-col h3{break-inside:avoid}
 @media(max-width:720px){#paper{padding:24px 18px 60px}.choices{grid-template-columns:1fr}.dochead h1{font-size:26px}.bar-row{gap:6px}button{padding:6px 8px;font-size:13px}}
-@page{size:A4;margin:9mm 10mm 11mm}
-@media print{
-body{background:#fff}.topbar,#menuReveal{display:none!important}.workspace{padding:0;overflow:visible;background:#fff}#stage{width:100%!important;max-width:none!important;transform:none!important;margin:0!important}#paper{box-shadow:none;border:none;padding:0!important;min-height:0;font-size:var(--print-font)!important}#drawCanvas{display:none!important}
-.dochead{margin:0 0 10px;padding-bottom:7px}.dochead h1{font-size:22px}.dochead .sub{font-size:11px}h2{font-size:16px;margin:14px 0 7px;padding:5px 7px;border-left-width:4px}h3{font-size:13px;margin:12px 0 5px}.passage{padding:7px 9px;line-height:1.34;margin:5px 0 7px;break-inside:avoid}.question{margin:6px 0 8px;line-height:1.28;break-inside:avoid}.qtext{margin-bottom:3px}.choices{gap:1px 12px;padding-left:4px}.choice{padding:1px 3px}.vocabimg{max-width:34mm;max-height:28mm;margin:3px 0 4px 4px}.choice.correct.show{background:none!important;outline:none!important;font-weight:400!important}
-body.print-two-col #paper{column-count:2;column-gap:8mm;column-rule:0}body.print-two-col .dochead{column-span:all}body.print-two-col .question,body.print-two-col .passage,body.print-two-col h2,body.print-two-col h3{break-inside:avoid}
-}
+
+
 
 
 /* Reading: keep each passage with its questions */
@@ -89,16 +85,7 @@ body.screen-two-col:not(.print-preview) .reading-unit .passage{
   .reading-unit-layout{display:block}
   .reading-unit .passage{margin-bottom:12px}
 }
-@media print{
-  .reading-unit{
-    border:none;
-    padding:0;
-    margin:0 0 10px;
-    break-inside:avoid;
-  }
-  .reading-unit-layout{display:block}
-  .reading-unit .passage{margin-bottom:6px}
-}
+
 
 .reading-unit{border:1px solid #d9dde4;border-radius:10px;padding:14px;margin:16px 0 22px;background:#fff;break-inside:avoid}
 .reading-unit-title h3{margin:0 0 10px}.reading-unit-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);gap:18px;align-items:start}
@@ -107,7 +94,7 @@ body.screen-two-col:not(.print-preview) .reading-unit .passage{
 body.screen-two-col:not(.print-preview) .reading-unit{break-inside:avoid;display:block}body.screen-two-col:not(.print-preview) .reading-unit-layout{display:block}body.screen-two-col:not(.print-preview) .reading-unit .passage{margin-bottom:12px}
 .print-preview .reading-unit-layout{display:block}.print-preview .reading-unit .passage{margin-bottom:8px}
 @media(max-width:900px){.reading-unit-layout{display:block}.reading-unit .passage{margin-bottom:12px}}
-@media print{.reading-unit{border:none;padding:0;margin:0 0 10px;break-inside:avoid}.reading-unit-layout{display:block}.fill-answer{display:none!important}}
+
 
 
 
@@ -137,13 +124,7 @@ body.screen-two-col:not(.print-preview) .reading-unit{break-inside:avoid;display
 @media(max-width:700px){
   .choices{grid-template-columns:1fr !important;}
 }
-@media print{
-  .choices{
-    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
-    column-gap:8mm !important;
-    row-gap:2mm !important;
-  }
-}
+
 
 /* final choice layout */
 .choices{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;column-gap:28px!important;row-gap:8px!important;align-items:start!important}
@@ -151,7 +132,7 @@ body.screen-two-col:not(.print-preview) .reading-unit{break-inside:avoid;display
 .choice-label{flex:0 0 auto!important;white-space:nowrap!important}
 .choice-text{flex:1 1 auto!important;min-width:0!important}
 @media(max-width:700px){.choices{grid-template-columns:1fr!important}}
-@media print{.choices{grid-template-columns:repeat(2,minmax(0,1fr))!important;column-gap:8mm!important;row-gap:2mm!important}}
+
 
 /* FINAL choice normalization */
 .choices{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;column-gap:28px!important;row-gap:8px!important}
@@ -159,93 +140,81 @@ body.screen-two-col:not(.print-preview) .reading-unit{break-inside:avoid;display
 .choice-label{flex:0 0 auto!important;white-space:nowrap!important}
 .choice-text{flex:1 1 auto!important;min-width:0!important}
 @media(max-width:700px){.choices{grid-template-columns:1fr!important}}
-@media print{.choices{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+
 
 /* source underline emphasis */
 #vocab .qtext u{text-decoration:underline!important;text-decoration-thickness:1.5px!important;text-underline-offset:2px!important}
 
-/* v13: print header/full-width fix */
-@media print {
-  #paper {
-    display:block !important;
-    grid-template-columns:none !important;
-    column-count:1 !important;
-    columns:auto !important;
-    width:100% !important;
-    max-width:none !important;
-  }
-  #reading, #vocab, #grammar {
-    display:block !important;
-    width:100% !important;
-    max-width:none !important;
-    grid-column:1 / -1 !important;
-    column-span:all !important;
-  }
-  #reading > h2, #reading > .instructions,
-  #vocab > h2, #vocab > .instructions,
-  #grammar > h2, #grammar > .instructions {
-    width:100% !important;
-    max-width:none !important;
-    display:block !important;
-  }
-  .reading-unit {
-    width:100% !important;
-    max-width:none !important;
-    margin-left:0 !important;
-    margin-right:0 !important;
-  }
-}
 
-/* v15: restore real print 1-column / 2-column switching */
-@media print {
-  /* default = print 1 column */
+
+
+
+
+
+
+/* === v16 CLEAN PRINT SYSTEM: single source of truth === */
+@page{size:A4;margin:9mm 10mm 11mm}
+@media print{
+  html,body{background:#fff!important}
+  .topbar,#menuReveal{display:none!important}
+  .workspace{padding:0!important;overflow:visible!important;background:#fff!important}
+  #stage{width:100%!important;max-width:none!important;transform:none!important;margin:0!important}
   #paper{
-    column-count:1 !important;
-    columns:auto !important;
-    column-gap:0 !important;
-    column-rule:0 !important;
-    width:100% !important;
-    max-width:none !important;
+    display:block!important;
+    box-shadow:none!important;border:none!important;padding:0!important;
+    min-height:0!important;font-size:var(--print-font)!important;
+    width:100%!important;max-width:none!important;
+    column-count:1!important;columns:auto!important;column-gap:0!important;column-rule:0!important;
   }
+  #drawCanvas{display:none!important}
+  .dochead{column-span:all!important;margin:0 0 10px!important;padding-bottom:7px!important;width:100%!important}
+  .dochead h1{font-size:22px!important}.dochead .sub{font-size:11px!important}
 
-  /* selected print 2-column */
+  /* section wrappers are transparent to the print column flow */
+  #reading,#vocab,#grammar{display:contents!important}
+  h2{
+    column-span:all!important;display:block!important;width:100%!important;
+    font-size:16px!important;margin:14px 0 7px!important;padding:5px 7px!important;border-left-width:4px!important;
+    break-after:avoid!important;
+  }
+  .instructions{
+    column-span:all!important;display:block!important;width:100%!important;
+    margin:4px 0 7px!important;break-after:avoid!important;
+  }
+  h3{font-size:13px!important;margin:12px 0 5px!important}
+  .passage{padding:7px 9px!important;line-height:1.34!important;margin:5px 0 7px!important}
+  .question{margin:6px 0 8px!important;line-height:1.28!important}
+  .qtext{margin-bottom:3px!important}
+  .choices{
+    display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    column-gap:8mm!important;row-gap:2mm!important;padding-left:4px!important;
+  }
+  .choice{display:flex!important;align-items:flex-start!important;gap:.35em!important;padding:1px 3px!important}
+  .choice-label{flex:0 0 auto!important;white-space:nowrap!important}
+  .choice-text{flex:1 1 auto!important;min-width:0!important}
+  .vocabimg{max-width:34mm!important;max-height:28mm!important;margin:3px 0 4px 4px!important}
+  .choice.correct.show{background:none!important;outline:none!important;font-weight:400!important}
+  .fill-answer{display:none!important}
+
+  .reading-unit{
+    border:none!important;border-radius:0!important;padding:0!important;margin:0 0 10px!important;
+    width:auto!important;max-width:none!important;break-inside:avoid!important;
+  }
+  .reading-unit-layout{display:block!important}
+  .reading-unit .passage{margin-bottom:6px!important}
+  .reading-unit,.question,.passage,h3{break-inside:avoid!important}
+
+  /* TRUE PRINT 2-COLUMN MODE */
   body.print-two-col #paper{
-    column-count:2 !important;
-    columns:2 !important;
-    column-gap:8mm !important;
-    column-rule:0 !important;
+    column-count:2!important;
+    columns:2!important;
+    column-gap:8mm!important;
+    column-rule:0!important;
   }
-
-  /* Header always stays across the full page */
-  #paper > .dochead{
-    column-span:all !important;
-    width:100% !important;
-  }
-
-  /* In 2-col print, section wrappers must not block multicolumn flow */
-  body.print-two-col #reading,
-  body.print-two-col #vocab,
-  body.print-two-col #grammar{
-    display:contents !important;
-  }
-
-  /* Section title/instructions stay full width, then units/questions flow in 2 cols */
-  body.print-two-col #reading > h2,
-  body.print-two-col #reading > .instructions,
-  body.print-two-col #vocab > h2,
-  body.print-two-col #vocab > .instructions,
-  body.print-two-col #grammar > h2,
-  body.print-two-col #grammar > .instructions{
-    column-span:all !important;
-    display:block !important;
-    width:100% !important;
-  }
-
-  .reading-unit,
-  .question,
-  .passage,
-  h3{
-    break-inside:avoid !important;
+  body.print-two-col .dochead,
+  body.print-two-col h2,
+  body.print-two-col .instructions{
+    column-span:all!important;
   }
 }
 </style></head><body>
@@ -357,8 +326,7 @@ word(s).</p></div><div class="question"><div class="qtext">6. In some restaurant
 to people.</div><div class="choices"><div class="choice correct"><span class="choice-label">A)</span><span class="choice-text">substituted</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">invented</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">consisted of</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">combined</span></div></div></div><div class="question"><div class="qtext">7. The group is made up of young artists and scientists..</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">keep track of</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">gets along with</span></div><div class="choice correct"><span class="choice-label">C)</span><span class="choice-text">consists of</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">makes a living</span></div></div></div><div class="question"><div class="qtext">8. We called a meeting to discuss our major problems.</div><div class="choices"><div class="choice correct"><span class="choice-label">A)</span><span class="choice-text">chief</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">convenient</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">cultural</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">systematic</span></div></div></div><div class="question"><div class="qtext">9. My new cell phone came with a free gift set including earphones.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">per</span></div><div class="choice correct"><span class="choice-label">B)</span><span class="choice-text">along with</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">instead of</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">throughout</span></div></div></div></section><section class="section" id="grammar"><h2>Grammar</h2><div class="instructions"><p>SHINE Grammar 2 Ch1 U1~Ch2 U2</p></div><div class="instructions"><p>Ch1. U1. Choose the answer that best completes the sentence.</p></div><div class="question"><div class="qtext">1. _____ is one block away.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">Quick</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">Goes</span></div><div class="choice correct"><span class="choice-label">C)</span><span class="choice-text">The subway station</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">From another city</span></div></div></div><div class="question"><div class="qtext">2. This soup tastes _____ to me.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">in the kitchen</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">cooking</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">every day</span></div><div class="choice correct"><span class="choice-label">D)</span><span class="choice-text">salty</span></div></div></div><div class="question"><div class="qtext">3. It _____ two hours to get there by train.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">far</span></div><div class="choice correct"><span class="choice-label">B)</span><span class="choice-text">takes</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">a great idea</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">each other</span></div></div></div><div class="question"><div class="qtext">4. _____ were very tired after the trip.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">Camping</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">Excited</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">For the first time</span></div><div class="choice correct"><span class="choice-label">D)</span><span class="choice-text">Jude and I</span></div></div></div><div class="question"><div class="qtext">5. My grandparents live _____.</div><div class="choices"><div class="choice correct"><span class="choice-label">A)</span><span class="choice-text">in a small village</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">an amusement park</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">take a break</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">very famous</span></div></div></div><div class="question"><div class="qtext">6. My mom helped _____ with my homework.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">does</span></div><div class="choice correct"><span class="choice-label">B)</span><span class="choice-text">me</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">clean</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">an email</span></div></div></div><div class="instructions"><p>U1. Choose the answer that is written incorrectly.</p></div><div class="question"><div class="qtext">7. ① The seafood pasta looks delicious .</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">①</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">②</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">③</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">④</span></div></div><div class="fill-answer correct"><b>Answer:</b> D) ④ going → go</div></div><div class="instructions"><p>U1. Choose the answer that best completes the sentence.</p></div><div class="question"><div class="qtext">8. Jenny와 나는 같은 학교에 다닌다.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">the same school</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">to the same school</span></div></div><div class="fill-answer correct"><b>Answer:</b> B) to the same school</div></div><div class="instructions"><p>Ch1. U2. Choose the answer that best completes the sentence.</p></div><div class="question"><div class="qtext">1. It gets _____ in winter.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">darkly quick</span></div><div class="choice correct"><span class="choice-label">B)</span><span class="choice-text">dark quickly</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">darkly quickly</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">dark fastly</span></div></div></div><div class="question"><div class="qtext">2. The girls are smiling _____ at me.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">bright</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">kind</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">warm</span></div><div class="choice correct"><span class="choice-label">D)</span><span class="choice-text">brightly</span></div></div></div><div class="question"><div class="qtext">3. I was _____ with the good results.</div><div class="choices"><div class="choice correct"><span class="choice-label">A)</span><span class="choice-text">happy</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">happily</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">badly</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">well</span></div></div></div><div class="instructions"><p>U2. Choose the answer that does NOT fit in the blank.</p></div><div class="question"><div class="qtext">4. It _____ very good.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">tastes</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">smells</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">feels</span></div><div class="choice correct"><span class="choice-label">D)</span><span class="choice-text">works</span></div></div></div><div class="question"><div class="qtext">5. Your idea sounds _____.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">great</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">perfect</span></div><div class="choice correct"><span class="choice-label">C)</span><span class="choice-text">well</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">fun</span></div></div></div><div class="question"><div class="qtext">6. In fall, some leaves _____ red and yellow.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">turn</span></div><div class="choice correct"><span class="choice-label">B)</span><span class="choice-text">does</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">become</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">are</span></div></div></div><div class="instructions"><p>U2. Choose the answer that is written incorrectly.</p></div><div class="question"><div class="qtext">7. ① You look great today.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">①</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">②</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">③</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">④</span></div></div><div class="fill-answer correct"><b>Answer:</b> B) ② became angrily → became angry</div></div><div class="instructions"><p>U2. Choose the answer that best completes the sentence</p></div><div class="question"><div class="qtext">8. 그 가수의 신곡들은 멋지게 들린다.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">sound wonderfully</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">sound wonderful</span></div></div><div class="fill-answer correct"><b>Answer:</b> B) sound wonderful</div></div><div class="instructions"><p>Ch1. U3. Choose the answer that best completes the sentence.</p></div><div class="question"><div class="qtext">1. We wrote a birthday card _____ our grandma.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">at</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">of</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">on</span></div><div class="choice correct"><span class="choice-label">D)</span><span class="choice-text">to</span></div></div></div><div class="question"><div class="qtext">2. My mom made a pretty bag _____ me.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">to</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">of</span></div><div class="choice correct"><span class="choice-label">C)</span><span class="choice-text">for</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">at</span></div></div></div><div class="question"><div class="qtext">3. Lucas sent a long email _____ his teacher.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">for</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">of</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">on</span></div><div class="choice correct"><span class="choice-label">D)</span><span class="choice-text">to</span></div></div></div><div class="question"><div class="qtext">4. I will lend Jason my comic books.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">for</span></div><div class="choice correct"><span class="choice-label">B)</span><span class="choice-text">to</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">of</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">at</span></div></div></div><div class="question"><div class="qtext">5. He bought his son new video games.</div><div class="choices"><div class="choice correct"><span class="choice-label">A)</span><span class="choice-text">for</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">to</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">of</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">at</span></div></div></div><div class="question"><div class="qtext">6. Ms. Brown teaches high school students history.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">of</span></div><div class="choice correct"><span class="choice-label">B)</span><span class="choice-text">to</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">for</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">at</span></div></div></div><div class="instructions"><p>U3. Choose the answer that is written incorrectly.</p></div><div class="question"><div class="qtext">7. ① My team won the final game.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">①</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">②</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">③</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">④</span></div></div><div class="fill-answer correct"><b>Answer:</b> C)  leave to → leave</div></div><div class="instructions"><p>U3. Choose the correct words and write them in the blank.</p></div><div class="question"><div class="qtext">8. 그것은 매년 많은 관광객들을 끌어들이는 인기 있는
 박물관이다.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">advice me</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">me advice</span></div></div><div class="fill-answer correct"><b>Answer:</b> B) me advice</div></div><div class="instructions"><p>Ch1. U4. Choose the answer that best completes the sentence.</p></div><div class="question"><div class="qtext">1. This scarf will keep you _____ this winter.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">be warm</span></div><div class="choice correct"><span class="choice-label">B)</span><span class="choice-text">warm</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">warmly</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">to warm</span></div></div></div><div class="question"><div class="qtext">2. She told her children _____ the vegetables.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">eat</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">to eating</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">eating</span></div><div class="choice correct"><span class="choice-label">D)</span><span class="choice-text">to eat</span></div></div></div><div class="question"><div class="qtext">3. We saw a big kite _____ high.</div><div class="choices"><div class="choice correct"><span class="choice-label">A)</span><span class="choice-text">fly</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">to fly</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">to flying</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">flies</span></div></div></div><div class="question"><div class="qtext">4. My sister sometimes makes me _____.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">be angry</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">angrily</span></div><div class="choice correct"><span class="choice-label">C)</span><span class="choice-text">angry</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">anger</span></div></div></div><div class="question"><div class="qtext">5. I heard someone _____ on the door.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">to knock</span></div><div class="choice correct"><span class="choice-label">B)</span><span class="choice-text">knock</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">knocks</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">to knocking</span></div></div></div><div class="question"><div class="qtext">6. The teacher had his students _____ the classroom first.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">cleaning</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">to clean</span></div><div class="choice correct"><span class="choice-label">C)</span><span class="choice-text">clean</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">to cleaning</span></div></div></div><div class="instructions"><p>U4. Choose the answer that is written incorrectly.</p></div><div class="question"><div class="qtext">7. ① My mom made me washing the dishes.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">①</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">②</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">③</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">④</span></div></div><div class="fill-answer correct"><b>Answer:</b> A) ① washing → wash</div></div><div class="instructions"><p>U4. Choose the answer that best completes the sentence.</p></div><div class="question"><div class="qtext">8. Rachel은 내게 그녀의 숙제를 도와 달라고 부탁했다.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">to help</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">to helping</span></div></div><div class="fill-answer correct"><b>Answer:</b> A) to help</div></div><div class="instructions"><p>Ch2. U1. Choose the answer that best completes the sentence.</p></div><div class="question"><div class="qtext">1. _____ an early dinner is good for your health.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">Have</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">Has</span></div><div class="choice correct"><span class="choice-label">C)</span><span class="choice-text">To have</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">To having</span></div></div></div><div class="question"><div class="qtext">2. Henry decided _____ piano lessons after school.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">take</span></div><div class="choice correct"><span class="choice-label">B)</span><span class="choice-text">to take</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">takes</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">took</span></div></div></div><div class="question"><div class="qtext">3. Janet told me _____ the dance club.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">not join</span></div><div class="choice correct"><span class="choice-label">B)</span><span class="choice-text">not to join</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">not joining</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">to join not</span></div></div></div><div class="question"><div class="qtext">4. A: Can you tell me _____ get to the train station?</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">what to</span></div><div class="choice correct"><span class="choice-label">B)</span><span class="choice-text">how to</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">where to</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">who to</span></div></div></div><div class="question"><div class="qtext">5. A: I made Alice angry. I don't know _____ say to her.</div><div class="choices"><div class="choice correct"><span class="choice-label">A)</span><span class="choice-text">what to</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">where to</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">who to</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">when to</span></div></div></div><div class="question"><div class="qtext">6. Jason hopes _____ to a good university.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">to go - Lose</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">go – To lose</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">to goes – To loses</span></div><div class="choice correct"><span class="choice-label">D)</span><span class="choice-text">to go – To lose</span></div></div></div><div class="instructions"><p>U1. Choose the answer that is written incorrectly.</p></div><div class="question"><div class="qtext">7. ① Brenda taught me how to play the guitar.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">①</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">②</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">③</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">④</span></div></div><div class="fill-answer correct"><b>Answer:</b> C) ③ not open → not to open</div></div><div class="instructions"><p>U1. Choose the answer that best completes the sentence.</p></div><div class="question"><div class="qtext">8. 모두가 미팅 날짜를 바꾸는 것에 동의했다.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">to changing</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">to change</span></div></div><div class="fill-answer correct"><b>Answer:</b> B) to change</div></div><div class="instructions"><p>Ch2. U2. Choose the answer that best completes the sentence.</p></div><div class="question"><div class="qtext">1. David has some more books _____.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">reading</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">to reads</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">read</span></div><div class="choice correct"><span class="choice-label">D)</span><span class="choice-text">to read</span></div></div></div><div class="question"><div class="qtext">2. There are many chairs _____.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">sit</span></div><div class="choice correct"><span class="choice-label">B)</span><span class="choice-text">to sit on</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">sitting on</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">to sit</span></div></div></div><div class="question"><div class="qtext">3. I want to buy something _____.</div><div class="choices"><div class="choice correct"><span class="choice-label">A)</span><span class="choice-text">sweet to eat</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">to eat sweet</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">sweet eat</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">eating sweet</span></div></div></div><div class="question"><div class="qtext">4. A: Do you have any questions _____ me?</div><div class="choices"><div class="choice correct"><span class="choice-label">A)</span><span class="choice-text">to ask</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">asking</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">to asks</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">ask</span></div></div></div><div class="question"><div class="qtext">5. We have a lot of laundry _____ today.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">do – to spend with</span></div><div class="choice correct"><span class="choice-label">B)</span><span class="choice-text">to do – to spend on</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">do – spend with</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">to do – to spend</span></div></div></div><div class="instructions"><p>U2. Choose the answer with the same usage of the underlined
 to-infinitive as the &lt;example&gt;.</p></div><div class="question"><div class="qtext">6. &lt;example&gt; There are many things to buy in the
-store.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">①</span></div><div class="choice correct"><span class="choice-label">B)</span><span class="choice-text">②</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">③</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">④</span></div></div></div><div class="instructions"><p>U2. Choose the answer that is written incorrectly.</p></div><div class="question"><div class="qtext">7. ① Joy has so many things to take care of .</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">①</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">②</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">③</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">④</span></div></div><div class="fill-answer correct"><b>Answer:</b> C) ③ to play → to play with</div></div><div class="instructions"><p>U2. Choose the answer that best completes the sentence.</p></div><div class="question"><div class="qtext">8. 그들은 이제 걱정할 것이 아무것도 없다.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">to worry</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">to worry about</span></div></div><div class="fill-answer correct"><b>Answer:</b> B) to worry about</div></div><p>Do your best on the Monthly
-Test.<br/></p></section>
+store.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">①</span></div><div class="choice correct"><span class="choice-label">B)</span><span class="choice-text">②</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">③</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">④</span></div></div></div><div class="instructions"><p>U2. Choose the answer that is written incorrectly.</p></div><div class="question"><div class="qtext">7. ① Joy has so many things to take care of .</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">①</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">②</span></div><div class="choice"><span class="choice-label">C)</span><span class="choice-text">③</span></div><div class="choice"><span class="choice-label">D)</span><span class="choice-text">④</span></div></div><div class="fill-answer correct"><b>Answer:</b> C) ③ to play → to play with</div></div><div class="instructions"><p>U2. Choose the answer that best completes the sentence.</p></div><div class="question"><div class="qtext">8. 그들은 이제 걱정할 것이 아무것도 없다.</div><div class="choices"><div class="choice"><span class="choice-label">A)</span><span class="choice-text">to worry</span></div><div class="choice"><span class="choice-label">B)</span><span class="choice-text">to worry about</span></div></div><div class="fill-answer correct"><b>Answer:</b> B) to worry about</div></div></section>
 </div></div></div><script>
 let docFont=+(localStorage.getItem('nona2_doc_font')||16),printFont=+(localStorage.getItem('nona2_print_font')||10.5);const fontLabel=document.getElementById('fontLabel'),printFontLabel=document.getElementById('printFontLabel');
 function applyFonts(){document.documentElement.style.setProperty('--doc-font',docFont+'px');document.documentElement.style.setProperty('--print-font',printFont+'pt');fontLabel.textContent=Math.round(docFont/16*100)+'%';printFontLabel.textContent=printFont.toFixed(1)+'pt';localStorage.setItem('nona2_doc_font',docFont);localStorage.setItem('nona2_print_font',printFont)}
