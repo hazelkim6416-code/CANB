@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="ko"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
-<title>Hepta 2 MT1 Review</title><style>
+<title>SP/FA MT1 [Hepta 2]</title><style>
 :root{--bg:#f4f5f7;--ink:#111;--muted:#6b7280;--line:#d8dbe2;--answer:#fff3b0;--doc-font:16px;--print-font:10.5pt}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--ink)}
 .topbar{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 1px 5px rgba(0,0,0,.06)}
@@ -167,6 +167,38 @@ body.screen-two-col:not(.print-preview) .reading-unit{break-inside:avoid;display
 
 /* source underline emphasis */
 #vocab .qtext u{text-decoration:underline!important;text-decoration-thickness:1.5px!important;text-underline-offset:2px!important}
+
+/* v13: print header/full-width fix */
+@media print {
+  #paper {
+    display:block !important;
+    grid-template-columns:none !important;
+    column-count:1 !important;
+    columns:auto !important;
+    width:100% !important;
+    max-width:none !important;
+  }
+  #reading, #vocab, #grammar {
+    display:block !important;
+    width:100% !important;
+    max-width:none !important;
+    grid-column:1 / -1 !important;
+    column-span:all !important;
+  }
+  #reading > h2, #reading > .instructions,
+  #vocab > h2, #vocab > .instructions,
+  #grammar > h2, #grammar > .instructions {
+    width:100% !important;
+    max-width:none !important;
+    display:block !important;
+  }
+  .reading-unit {
+    width:100% !important;
+    max-width:none !important;
+    margin-left:0 !important;
+    margin-right:0 !important;
+  }
+}
 </style></head><body>
 <div class="topbar"><div class="bar-row"><div class="title">Hepta 2 MT1 Review</div>
 <button id="printPreview">인쇄용 보기</button><button onclick="window.print()">인쇄</button><span>화면 레이아웃</span><button class="active" id="screenOneCol">1단</button><button id="screenTwoCol">2단</button><span>인쇄 레이아웃</span><button class="active" id="printOneCol">1단</button><button id="printTwoCol">2단</button><div class="toolsep"></div><button id="hideMenu">메뉴 숨기기</button><div class="toolsep"></div>
