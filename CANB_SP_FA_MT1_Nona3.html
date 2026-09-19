@@ -355,6 +355,15 @@ body.fixed-handout-on #paper .fixed-page-label{
  body.fixed-handout-on #paper .fixed-col.right{border-left:0!important;border-top:1px solid #aeb4bc!important}
 }
 @media print{#fixedHandoutToggle{display:none!important}.fixed-page-label{display:none!important}}
+</style><style id="fixed-handout-interactive-style">
+body.fixed-handout-on.mt-star-on [data-mt-star="1"]{outline:2px solid rgba(17,24,39,.28)!important;outline-offset:4px!important;border-radius:4px!important}
+body.fixed-handout-on.mt-star-on [data-mt-star="1"]::after{content:"★★★"!important;position:absolute!important;top:-2px!important;right:2px!important;font-size:.92em!important;font-weight:900!important;letter-spacing:1px!important;line-height:1!important;z-index:20!important}
+body.fixed-handout-on .answer{display:none}
+body.fixed-handout-on.show-answers .answer{display:block!important}
+@media print{
+ body.fixed-handout-on.mt-star-on [data-mt-star="1"]::after{display:none!important}
+ body.fixed-handout-on.mt-star-on [data-mt-star="1"]{outline:none!important}
+}
 </style></head><body>
 <div class="topbar"><div class="bar-row"><div class="title">SP/FA MT1 [Nona 3]</div>
 <button id="printPreview">인쇄용 보기</button><button onclick="window.print()">인쇄</button><span>화면 레이아웃</span><button class="active" id="screenOneCol">1단</button><button id="screenTwoCol">2단</button><span>인쇄 레이아웃</span><button class="active" id="printOneCol">1단</button><button id="printTwoCol">2단</button><div class="toolsep"></div><button id="hideMenu">메뉴 숨기기</button><div class="toolsep"></div>
@@ -555,5 +564,43 @@ window.addEventListener('resize',()=>setTimeout(resizeCanvas,100));new ResizeObs
    btn.classList.toggle("active",on);btn.setAttribute("aria-pressed",on?"true":"false");
    if(on)window.scrollTo({top:0,behavior:"instant"});
  });
+})();
+</script><script id="fixed-handout-interactive-script">
+(function(){
+ const handout=document.getElementById("fixedHandoutToggle");
+ const star=document.getElementById("mtStarToggle");
+ const ans=document.getElementById("showAns");
+ if(handout){
+   handout.addEventListener("click",function(){
+     setTimeout(function(){
+       if(star){
+         const on=star.classList.contains("active")||star.getAttribute("aria-pressed")==="true";
+         document.body.classList.toggle("mt-star-on",on);
+       }
+       if(ans){
+         const t=(ans.textContent||"").trim();
+         const on=/숨기|가리기/.test(t)||document.body.classList.contains("answers-on")||document.body.classList.contains("show-answers");
+         document.body.classList.toggle("show-answers",on);
+       }
+     },0);
+   });
+ }
+ if(star){
+   star.addEventListener("click",function(){
+     setTimeout(function(){
+       const on=star.classList.contains("active")||star.getAttribute("aria-pressed")==="true";
+       document.body.classList.toggle("mt-star-on",on);
+     },0);
+   });
+ }
+ if(ans){
+   ans.addEventListener("click",function(){
+     setTimeout(function(){
+       const t=(ans.textContent||"").trim();
+       const on=/숨기|가리기/.test(t)||document.body.classList.contains("answers-on");
+       document.body.classList.toggle("show-answers",on);
+     },0);
+   });
+ }
 })();
 </script></body></html>
