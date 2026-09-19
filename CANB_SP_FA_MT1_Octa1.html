@@ -40,7 +40,7 @@ function setZoom(v){zoom=Math.max(.6,Math.min(2.5,v));document.documentElement.s
 $('#zoomIn').onclick=()=>setZoom(zoom+.1);$('#zoomOut').onclick=()=>setZoom(zoom-.1);$('#zoomReset').onclick=()=>setZoom(1);
 function renderMarks(){$$('.saved-layer').forEach(x=>x.innerHTML='');for(const m of data.marks){const l=$(`.pdf-page[data-page="${m.page}"] .saved-layer`);if(!l)continue;const d=document.createElement('div');d.className='mark '+m.type;Object.assign(d.style,{left:m.x+'%',top:m.y+'%',width:m.w+'%',height:m.h+'%'});d.style.display=(m.type==='problem'?document.body.classList.contains('show-problem'):document.body.classList.contains('show-answer'))?'block':'none';l.appendChild(d)}}
 $('#previewProblem').onclick=()=>{let on=document.body.classList.toggle('show-problem');$('#previewProblem').classList.toggle('active',on);renderMarks()};
-$('#previewAnswer').onclick=()=>{let on=document.body.classList.toggle('show-answer');$('#previewAnswer').classList.toggle('active',on);renderMarks()};
+$('#previewAnswer').onclick=()=>{let on=document.body.classList.toggle('show-answer');$('#previewAnswer').classList.toggle('active',on);renderMarks();setTimeout(()=>{if(typeof renderWrittenAnswers==='function')renderWrittenAnswers()},0)};
 function setEdit(on){edit=on;document.body.classList.toggle('edit-mode',on);$('#editToggle').classList.toggle('active',on);if(on){drawMode=null;document.body.classList.remove('draw-mode');$('#pen').classList.remove('active');$('#eraser').classList.remove('active')}}
 $('#editToggle').onclick=()=>setEdit(!edit);
 function chooseMark(t){markType=t;setEdit(true);$('#problemMode').classList.toggle('active',t==='problem');$('#highlightMode').classList.toggle('active',t==='highlight')}
@@ -65,16 +65,16 @@ load();renderMarks();
 #editToggle,#problemMode,#highlightMode,#undoMark,#exportData,#importData,#importFile{display:none!important}
 .edit-layer{display:none!important}
 .written-answer-text{
-  position:absolute; z-index:7; font-weight:800; font-size:15px;
+  position:absolute; z-index:50; font-weight:800; font-size:15px;
   background:rgba(255,245,120,.94); padding:2px 5px; border-radius:4px;
   pointer-events:none; white-space:nowrap;
 }
 </style>
 <script>
-const WRITTEN_ANSWERS = {"1789799914632-77ddf5a1fd2d3": "works up her courage", "1789799916409-bc1dd227fd995": "have an idea", "1789799919726-f33d77a4500c2": "in your country", "1789799923664-2b1e2dbb902f": "think of our eating culture"};
+const WRITTEN_ANSWERS = {"1789799872331-6b2709742e8488": "works up her courage", "1789799874469-b52dc77bc39a6": "have an idea", "1789799914632-77ddf5a1fd2d3": "in your country", "1789799916409-bc1dd227fd995": "think of our eating culture"};
 function renderWrittenAnswers(){
   document.querySelectorAll('.written-answer-text').forEach(e=>e.remove());
-  if(!document.body.classList.contains('show-answers')) return;
+  if(!document.body.classList.contains('show-answer')) return;
   for(const m of data.marks){
     const ans=WRITTEN_ANSWERS[m.id];
     if(!ans) continue;
