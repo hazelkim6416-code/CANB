@@ -324,9 +324,38 @@ body.mtstar-on .question[data-mtstar="1"]::after{content:"★★★";display:inl
 #mtStarToggle.active{background:#111827;color:#fff;border-color:#111827}
 @media print{#mtStarToggle{display:none!important}.question[data-mtstar="1"]{outline:none!important}.question[data-mtstar="1"]::after{display:none!important;content:none!important}}
 </style>
+
+<style id="student-page-guide-style">
+.student-page-break{display:none}
+body.student-pages-on.screen-two-col:not(.print-preview) .student-page-break{
+  display:flex!important;
+  column-span:all!important;
+  width:100%!important;
+  box-sizing:border-box!important;
+  align-items:center!important;
+  gap:12px!important;
+  margin:24px 0 20px!important;
+  color:#6b7280!important;
+  font-size:12px!important;
+  font-weight:800!important;
+  letter-spacing:.02em!important;
+  break-before:column!important;
+}
+body.student-pages-on.screen-two-col:not(.print-preview) .student-page-break::before,
+body.student-pages-on.screen-two-col:not(.print-preview) .student-page-break::after{
+  content:""!important;
+  height:1px!important;
+  background:#9ca3af!important;
+  flex:1 1 auto!important;
+}
+body.student-pages-on.screen-two-col:not(.print-preview) #studentPagesToggle.active{
+  background:#111827;color:#fff;border-color:#111827
+}
+@media print{.student-page-break,#studentPagesToggle{display:none!important}}
+</style>
 </head><body>
 <div class="topbar"><div class="bar-row"><div class="title">SP/FA MT1 [Octa 1]</div>
-<button id="printPreview">인쇄용 보기</button><button onclick="window.print()">인쇄</button><span>화면 레이아웃</span><button class="active" id="screenOneCol">1단</button><button id="screenTwoCol">2단</button><span>인쇄 레이아웃</span><button class="active" id="printOneCol">1단</button><button id="printTwoCol">2단</button><div class="toolsep"></div><button id="hideMenu">메뉴 숨기기</button><button id="mtStarToggle" title="핵심 문제 표시">★★★</button><div class="toolsep"></div>
+<button id="printPreview">인쇄용 보기</button><button onclick="window.print()">인쇄</button><span>화면 레이아웃</span><button class="active" id="screenOneCol">1단</button><button id="screenTwoCol">2단</button><span>인쇄 레이아웃</span><button class="active" id="printOneCol">1단</button><button id="printTwoCol">2단</button><div class="toolsep"></div><button id="hideMenu">메뉴 숨기기</button><button id="mtStarToggle" title="핵심 문제 표시">★★★</button><button id="studentPagesToggle" type="button" aria-pressed="true">배포본 보기</button><div class="toolsep"></div>
 <span>화면 글자</span><button id="fontDown">−</button><span class="fontlabel" id="fontLabel">100%</span><button id="fontUp">+</button><button id="fontReset">기본</button><span>인쇄 글자</span><button id="printFontDown">−</button><span class="fontlabel" id="printFontLabel">10.5pt</span><button id="printFontUp">+</button>
 <select id="jump"><option value="">메뉴</option><option value="reading">Reading</option><option value="vocab">Vocabulary</option><option value="grammar">Grammar</option></select><div class="toolsep"></div><button id="showAns">전체 정답</button><button id="hideAns">정답 숨기기</button><div class="toolsep"></div>
 <button id="zoomOut">−</button><span class="zoomlabel" id="zoomLabel">100%</span><button id="zoomIn">+</button><button id="zoom100">100%</button><button id="fitWidth">폭 맞춤</button><button id="fullscreen">전체 화면</button></div>
@@ -384,5 +413,47 @@ window.addEventListener('resize',()=>setTimeout(resizeCanvas,100));new ResizeObs
 </script>
 <script id="mtstar-script">
 (function(){var b=document.getElementById('mtStarToggle');if(!b)return;b.addEventListener('click',function(){var on=document.body.classList.toggle('mtstar-on');b.classList.toggle('active',on);});})();
+</script>
+
+<script id="student-page-guide-script">
+(function(){
+  const starts = ["U1 L2", "Vocabulary", "U1 L2. Choose the correct answer for the blank.", "U2 L1. Type to complete the sentence.", "U2. Choose the correct answer for the blank."];
+  const norm = s => (s||"").replace(/\s+/g," ").trim();
+  const candidates = Array.from(document.querySelectorAll(
+    "#paper h2,#paper h3,#paper .instructions,#paper .question"
+  ));
+  let from = 0;
+  starts.forEach((target, i) => {
+    const t = norm(target);
+    let found = -1;
+    for(let j=from;j<candidates.length;j++){
+      if(norm(candidates[j].innerText).startsWith(t)){ found=j; break; }
+    }
+    if(found < 0) return;
+    const el = candidates[found];
+    const br = document.createElement("div");
+    br.className = "student-page-break";
+    br.dataset.studentPage = String(i+2);
+    br.textContent = "학생 인쇄물 " + (i+2) + "쪽";
+    el.parentNode.insertBefore(br, el);
+    from = found + 1;
+  });
+
+  const btn = document.getElementById("studentPagesToggle");
+  if(!btn) return;
+  function apply(on){
+    document.body.classList.toggle("student-pages-on",on);
+    btn.classList.toggle("active",on);
+    btn.setAttribute("aria-pressed",on?"true":"false");
+    localStorage.setItem("student_pages_on",on?"1":"0");
+    if(on){
+      const two=document.getElementById("screenTwoCol");
+      if(two && !document.body.classList.contains("screen-two-col")) two.click();
+    }
+    setTimeout(()=>{ if(typeof resizeCanvas==="function") resizeCanvas(); },80);
+  }
+  btn.addEventListener("click",()=>apply(!document.body.classList.contains("student-pages-on")));
+  apply(localStorage.getItem("student_pages_on")!=="0");
+})();
 </script>
 </body></html>
