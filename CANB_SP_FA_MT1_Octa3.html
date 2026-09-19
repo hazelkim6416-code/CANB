@@ -68,7 +68,7 @@ load();renderMarks();
 background:rgba(255,245,120,.96);padding:2px 5px;border-radius:4px;pointer-events:none;white-space:nowrap}
 </style>
 <script>
-const WRITTEN_ANSWERS={"1789800902915-b05278818e20b": "had a flat tire", "1789800901065-0cc9eecf52623": "None of her friends", "1789800947673-26b23d09e8ba08": "take care of their babies", "1789800951151-5e2fb8e1ce8698": "lay eggs in their shelter"};
+const WRITTEN_ANSWERS={"1789800902915-b05278818e20b": "None of her friends", "1789800901065-0cc9eecf52623": "had a flat tire", "1789800947673-26b23d09e8ba08": "take care of their babies", "1789800951151-5e2fb8e1ce8698": "lay eggs in their shelter"};
 function renderWrittenAnswers(){
  document.querySelectorAll('.written-answer-text').forEach(e=>e.remove());
  if(!document.body.classList.contains('show-answer')) return;
