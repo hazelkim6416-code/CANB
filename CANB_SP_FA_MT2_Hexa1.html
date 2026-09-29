@@ -58,6 +58,19 @@ body.show-answers .answer-mark{display:block}
   background:#2563eb !important;
   color:#fff !important;
 }
+</style><style>
+/* Copy / text-selection protection */
+html, body, .sheet, .page, .viewer, .passage, .question, .choices, .choice, img {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+  -webkit-touch-callout: none !important;
+}
+img {
+  -webkit-user-drag: none !important;
+  user-drag: none !important;
+}
 </style></head><body>
 <div class="toolbar">
 <span class="title">Hexa 1 · Monthly Test 2 Review</span>
@@ -233,4 +246,21 @@ document.addEventListener('wheel',e=>{
 },{passive:true});
 
 applyView();
+</script><script>
+/* Disable copy/paste/context menu/drag from review content */
+['copy','cut','paste','contextmenu','dragstart','selectstart'].forEach(evt => {
+  document.addEventListener(evt, e => {
+    const t = e.target;
+    if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) return;
+    e.preventDefault();
+  }, {capture:true});
+});
+document.addEventListener('keydown', e => {
+  const key = e.key.toLowerCase();
+  if ((e.ctrlKey || e.metaKey) && ['c','x','v','a','s','u'].includes(key)) {
+    const t = e.target;
+    if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) return;
+    e.preventDefault();
+  }
+});
 </script></body></html>
