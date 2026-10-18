@@ -71,13 +71,20 @@ img {
   -webkit-user-drag: none !important;
   user-drag: none !important;
 }
+</style><style id="mt2-final-stars-css">
+.mt2-final-star-layer{position:absolute;inset:0;z-index:45;pointer-events:none}
+.mt2-final-star{position:absolute;border:2px solid #e11d48;background:rgba(225,29,72,.035);border-radius:3px;box-sizing:border-box}
+.mt2-final-star:after{content:"★★★";position:absolute;right:0;top:-18px;padding:2px 4px;background:#e11d48;color:#fff;border-radius:4px;font:900 10px Arial,sans-serif;white-space:nowrap}
+body:not(.mt2-final-show-stars) .mt2-final-star-layer{display:none!important}
+#mt2FinalToggle.active{background:#e11d48;color:white}
+@media print{.mt2-final-star-layer{display:none!important}}
 </style></head><body>
 <div class="toolbar">
 <span class="title">Hexa 1 · Monthly Test 2 Review</span>
 <button id="prevPage">◀ 이전</button><span id="pageIndicator">1 / 6</span><button id="nextPage">다음 ▶</button>
 <button id="zoomOut">−</button><span id="zoomLabel">110%</span><button id="zoomIn">＋</button><button id="resetZoom">110%</button><button id="fitBtn">화면 맞춤</button>
 <button id="penBtn">펜</button><button id="eraserBtn">지우개</button><button id="clearInk">필기 지우기</button>
-<button id="allAnswersBtn">전체 정답 보기</button><button id="printBtn">인쇄</button>
+<button id="allAnswersBtn">전체 정답 보기</button>
 </div>
 <div class="viewer">
 <div class="page-shell active">
@@ -158,7 +165,7 @@ document.querySelector('#fitBtn').onclick=()=>{
   zoom=Math.min(vw/BASE_W,vh/BASE_H,1.5);
   applyView();
 };
-document.querySelector('#printBtn').onclick=()=>window.print();
+
 
 /* Individual answer reveal */
 document.querySelectorAll('.q-answer-btn').forEach(btn=>{
@@ -263,4 +270,19 @@ document.addEventListener('keydown', e => {
     e.preventDefault();
   }
 });
-</script></body></html>
+</script><script id="mt2-final-stars-js">(function(){
+const marks=[{"id":"ud8y8tnnsvmvdmlk6z","page":1,"type":"problem","x":2.845968478132191,"y":36.08741598232147,"w":46.79025153025156,"h":17.288756100196046},{"id":"73dji4j4sftmvdmlm3g","page":1,"type":"problem","x":3.4126324240002894,"y":72.49684935889327,"w":45.17121168491413,"h":17.288756100196053},{"id":"eyak0zrk5umvdmlo2a","page":1,"type":"problem","x":51.01240387692056,"y":59.67340112563528,"w":46.223587584383466,"h":16.258300438594958},{"id":"a6l9vzjq9nwmvdmlpqy","page":1,"type":"problem","x":50.93145188465369,"y":77.64912766689872,"w":46.46644356118407,"h":16.48729058561743},{"id":"ux64pw0fygmvdmmcd4","page":2,"type":"problem","x":51.983827784123015,"y":7.234657457490979,"w":45.25216367718101,"h":17.05976595317358},{"id":"vtv2ckbc5m9mvdmmdzk","page":2,"type":"problem","x":50.93145188465369,"y":26.24083966035551,"w":46.62834754571781,"h":16.37279551210619},{"id":"x4llz6r2k3mvdmmfmy","page":2,"type":"problem","x":50.93145188465369,"y":44.56005142215265,"w":46.304539576650335,"h":17.05976595317358},{"id":"0uk9a0kyp9xmvdmmwnc","page":3,"type":"problem","x":35.104072521601196,"y":15.421055213544074,"w":29.952237138742348,"h":31.25715506856637},{"id":"phcvl49o2zmmvdmn1os","page":3,"type":"problem","x":67.64677341288342,"y":18.05444190430241,"w":23.71893373419327,"h":31.48614521558883},{"id":"mhbh5rkfb9dmvdmn9yp","page":4,"type":"problem","x":2.11740054773035,"y":17.768204220524332,"w":30.437949092343572,"h":34.57751220039209},{"id":"deq5fz450bkmvdmnce7","page":4,"type":"problem","x":34.66010143901258,"y":15.134817529765995,"w":30.680805069144185,"h":33.8905417593247},{"id":"q01wqvurjsomvdmnhmq","page":5,"type":"problem","x":1.0650246482610244,"y":53.94864745007368,"w":31.490324991812898,"h":35.26448264145948},{"id":"g4v2kbkfa9hmvdmnl5c","page":6,"type":"problem","x":1.712640586395994,"y":17.539214073501867,"w":31.166517022745413,"h":34.2340269798584},{"id":"6undw47d4sgmvdmnse4","page":4,"type":"problem","x":67.12185033802793,"y":18.226184514569262,"w":30.680805069144185,"h":33.547056538791004},{"id":"8sfqxr5q74rmvdmnvyc","page":4,"type":"problem","x":67.2028023302948,"y":54.63561789114107,"w":30.842709053677936,"h":33.08907624474608},{"id":"tzx4q9cx5cpmvdmnyw0","page":5,"type":"problem","x":66.71709037669358,"y":17.768204220524332,"w":31.085565030478534,"h":34.11953190634717},{"id":"js17mjcyq89mvdmo39q","page":6,"type":"problem","x":66.79804236896044,"y":54.177637597096144,"w":31.2474690150123,"h":33.8905417593247}];
+const pages=[...document.querySelectorAll('.shell .sheet, .page-shell .page')];
+for(let i=0;i<pages.length;i++){
+ const page=pages[i]; const layer=document.createElement('div');layer.className='mt2-final-star-layer';
+ for(const m of marks){if(Number(m.page)!==i+1)continue;
+ const box=document.createElement('div');box.className='mt2-final-star';
+ box.style.left=m.x+'%';box.style.top=m.y+'%';box.style.width=m.w+'%';box.style.height=m.h+'%';layer.appendChild(box);
+ }page.appendChild(layer);
+}
+const toolbar=document.querySelector('.toolbar'); if(toolbar){
+ const btn=document.createElement('button');btn.type='button';btn.id='mt2FinalToggle';btn.textContent='★★★ 보기';
+ btn.addEventListener('click',function(){const enabled=document.body.classList.toggle('mt2-final-show-stars');btn.classList.toggle('active',enabled);btn.textContent=enabled?'★★★ 숨기기':'★★★ 보기'});
+ toolbar.appendChild(btn);
+}
+})();</script></body></html>

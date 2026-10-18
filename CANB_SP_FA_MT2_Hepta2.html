@@ -178,6 +178,13 @@ img {
   -webkit-user-drag: none !important;
   user-drag: none !important;
 }
+</style><style id="mt2-final-stars-css">
+.mt2-final-star-layer{position:absolute;inset:0;z-index:45;pointer-events:none}
+.mt2-final-star{position:absolute;border:2px solid #e11d48;background:rgba(225,29,72,.035);border-radius:3px;box-sizing:border-box}
+.mt2-final-star:after{content:"★★★";position:absolute;right:0;top:-18px;padding:2px 4px;background:#e11d48;color:#fff;border-radius:4px;font:900 10px Arial,sans-serif;white-space:nowrap}
+body:not(.mt2-final-show-stars) .mt2-final-star-layer{display:none!important}
+#mt2FinalToggle.active{background:#e11d48;color:white}
+@media print{.mt2-final-star-layer{display:none!important}}
 </style></head>
 <body>
 <div class="toolbar">
@@ -185,7 +192,7 @@ img {
 <button id="prevPage">◀ 이전</button><span id="pageIndicator">1 / 8</span><button id="nextPage">다음 ▶</button>
 <button id="zoomOut">−</button><span id="zoomLabel">Fit</span><button id="zoomIn">＋</button><button id="resetZoom">110%</button><button id="fitBtn">화면 맞춤</button>
 <button id="penBtn">펜</button><button id="eraserBtn">지우개</button><button id="clearInk">필기 지우기</button>
-<button id="allAnswersBtn">전체 정답 보기</button><button id="printBtn">인쇄</button>
+<button id="allAnswersBtn">전체 정답 보기</button>
 </div>
 <div class="viewer">
 <div class="shell active">
@@ -532,7 +539,7 @@ zoomOut.onclick=()=>{zoom=Math.max(.45,zoom-.05);applyView()};
 zoomIn.onclick=()=>{zoom=Math.min(1.5,zoom+.05);applyView()};
 resetZoom.onclick=()=>{zoom=1.10;applyView()};
 fitBtn.onclick=fitToScreen;
-printBtn.onclick=()=>window.print();
+
 
 document.querySelectorAll('.question').forEach(q=>{
   const btn=q.querySelector('.ansbtn');
@@ -601,5 +608,20 @@ document.addEventListener('keydown', e => {
     e.preventDefault();
   }
 });
-</script></body>
+</script><script id="mt2-final-stars-js">(function(){
+const marks=[{"id":"fen22vilpvemvdn58rd","page":1,"type":"problem","x":50.844518651178944,"y":27.001194743130227,"w":45.86856113820079,"h":17.204301075268816},{"id":"hrhrys6h84dmvdn5cb0","page":1,"type":"problem","x":50.422156209759045,"y":45.40023894862605,"w":46.03750611476875,"h":16.48745519713262},{"id":"cc2o3zyavpmvdn5dko","page":1,"type":"problem","x":50.67557367461099,"y":62.96296296296296,"w":46.713286021040574,"h":17.084826762246124},{"id":"uifiscws5imvdn5oiy","page":2,"type":"problem","x":51.266881092598844,"y":10.15531660692951,"w":46.03750611476874,"h":15.890083632019117},{"id":"ps1xv9ozdukmvdn5r91","page":2,"type":"problem","x":51.52029855745078,"y":44.80286738351254,"w":45.61514367334885,"h":16.24850657108722},{"id":"zrzxmknx3kbmvdn63f4","page":2,"type":"problem","x":51.266881092598844,"y":62.72401433691756,"w":46.37539606790465,"h":16.726403823178018},{"id":"9xhmd8m2rmomvdn69sq","page":4,"type":"problem","x":3.2865077472985713,"y":16.845878136200717,"w":29.39642592282481,"h":28.91278375149343},{"id":"nazyd8qw1xmvdn6cgh","page":4,"type":"problem","x":35.04816334207481,"y":43.847072879330945,"w":30.24115080566461,"h":29.510155316606934},{"id":"kran8vyls1mvdn6fya","page":5,"type":"problem","x":3.2865077472985713,"y":16.726403823178018,"w":30.32562329394859,"h":27.956989247311824},{"id":"3ck4h6ls3v9mvdn6imi","page":5,"type":"problem","x":34.96369085379083,"y":42.29390681003584,"w":30.156678317380617,"h":29.868578255675025},{"id":"zygynnnchvgmvdn6yn2","page":4,"type":"problem","x":66.64087396028309,"y":16.248506571087216,"w":30.32562329394858,"h":19.59378733572282},{"id":"n9mahe3qp7dmvdn74ih","page":5,"type":"problem","x":66.978763913419,"y":16.487455197132615,"w":30.41009578223256,"h":19.59378733572282},{"id":"nz08w7zu44mvdn7bko","page":5,"type":"problem","x":67.06323640170298,"y":37.51493428912784,"w":30.494568270516538,"h":16.965352449223417},{"id":"p1omkbinsemvdn7rsm","page":6,"type":"problem","x":2.779672817594695,"y":47.07287933094385,"w":31.0858756885044,"h":29.749103942652326},{"id":"3qlbkvm3dabmvdn7yt8","page":5,"type":"problem","x":34.879218365506844,"y":12.903225806451612,"w":30.916930711936445,"h":27.35961768219833},{"id":"il47mohgekmvdn8oic","page":7,"type":"problem","x":3.1175627707306126,"y":33.09438470728794,"w":30.747985735368484,"h":17.084826762246117},{"id":"8ggozc4ratomvdn8rb0","page":7,"type":"problem","x":2.779672817594695,"y":51.732377538829155,"w":30.494568270516545,"h":13.859020310633213},{"id":"j5nkioh330lmvdn9cp8","page":8,"type":"problem","x":3.1175627707306126,"y":12.425328554360812,"w":30.579040758800527,"h":27.479091995221033},{"id":"ltiwiuskdgmvdn9fc0","page":8,"type":"problem","x":66.21851151886318,"y":43.13022700119474,"w":31.17034817678838,"h":31.660692951015534},{"id":"21p2oqqpixkmvdn9vzs","page":7,"type":"problem","x":66.47192898371512,"y":32.25806451612903,"w":31.677183106492265,"h":17.084826762246117},{"id":"05uqspfxb95nmvdnai1t","page":6,"type":"problem","x":34.96369085379083,"y":13.142174432497013,"w":29.565370899392768,"h":28.076463560334524}];
+const pages=[...document.querySelectorAll('.shell .sheet, .page-shell .page')];
+for(let i=0;i<pages.length;i++){
+ const page=pages[i]; const layer=document.createElement('div');layer.className='mt2-final-star-layer';
+ for(const m of marks){if(Number(m.page)!==i+1)continue;
+ const box=document.createElement('div');box.className='mt2-final-star';
+ box.style.left=m.x+'%';box.style.top=m.y+'%';box.style.width=m.w+'%';box.style.height=m.h+'%';layer.appendChild(box);
+ }page.appendChild(layer);
+}
+const toolbar=document.querySelector('.toolbar'); if(toolbar){
+ const btn=document.createElement('button');btn.type='button';btn.id='mt2FinalToggle';btn.textContent='★★★ 보기';
+ btn.addEventListener('click',function(){const enabled=document.body.classList.toggle('mt2-final-show-stars');btn.classList.toggle('active',enabled);btn.textContent=enabled?'★★★ 숨기기':'★★★ 보기'});
+ toolbar.appendChild(btn);
+}
+})();</script></body>
 </html>

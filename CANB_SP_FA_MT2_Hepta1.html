@@ -441,6 +441,13 @@ img {
   -webkit-user-drag: none !important;
   user-drag: none !important;
 }
+</style><style id="mt2-final-stars-css">
+.mt2-final-star-layer{position:absolute;inset:0;z-index:45;pointer-events:none}
+.mt2-final-star{position:absolute;border:2px solid #e11d48;background:rgba(225,29,72,.035);border-radius:3px;box-sizing:border-box}
+.mt2-final-star:after{content:"★★★";position:absolute;right:0;top:-18px;padding:2px 4px;background:#e11d48;color:#fff;border-radius:4px;font:900 10px Arial,sans-serif;white-space:nowrap}
+body:not(.mt2-final-show-stars) .mt2-final-star-layer{display:none!important}
+#mt2FinalToggle.active{background:#e11d48;color:white}
+@media print{.mt2-final-star-layer{display:none!important}}
 </style></head>
 <body>
 <div class="toolbar">
@@ -448,7 +455,7 @@ img {
 <button id="prevPage">◀ 이전</button><span id="pageIndicator">1 / 8</span><button id="nextPage">다음 ▶</button>
 <button id="zoomOut">−</button><span id="zoomLabel">110%</span><button id="zoomIn">＋</button><button id="resetZoom">110%</button><button id="fitBtn">화면 맞춤</button>
 <button id="penBtn">펜</button><button id="eraserBtn">지우개</button><button id="clearInk">필기 지우기</button>
-<button id="allAnswersBtn">전체 정답 보기</button><button id="printBtn">인쇄</button>
+<button id="allAnswersBtn">전체 정답 보기</button>
 </div>
 <div class="viewer">
 <div class="shell active"><section class="sheet reading-single" data-page="1"><canvas class="ink"></canvas><div class="sheet-title">[SP/FA] Hepta 1 Monthly Test 2 Review Sheet</div><div class="reading-cols"><div class="rcol"><div class="passage">
@@ -753,7 +760,7 @@ document.querySelector('#zoomOut').onclick=()=>{zoom=Math.max(.45,zoom-.05);appl
 document.querySelector('#zoomIn').onclick=()=>{zoom=Math.min(1.5,zoom+.05);applyView()};
 document.querySelector('#resetZoom').onclick=()=>{zoom=1.10;applyView()};
 document.querySelector('#fitBtn').onclick=()=>{zoom=fitScale();applyView()};
-document.querySelector('#printBtn').onclick=()=>window.print();
+
 
 document.querySelectorAll('.question').forEach(q=>{
   const btn=q.querySelector('.ansbtn');
@@ -826,5 +833,20 @@ document.addEventListener('keydown', e => {
     e.preventDefault();
   }
 });
-</script></body>
+</script><script id="mt2-final-stars-js">(function(){
+const marks=[{"id":"0yj40wputfhjmvdn0r3r","page":1,"type":"problem","x":50.840450574691886,"y":9.750297265160523,"w":45.65039760152165,"h":15.81450653983353},{"id":"a7ozr6ikye5mvdn0ty8","page":1,"type":"problem","x":51.42894557139658,"y":45.65992865636147,"w":45.31411474626182,"h":16.88466111771701},{"id":"07gzysjsydvamvdn0wb7","page":1,"type":"problem","x":51.34487485758162,"y":63.73365041617122,"w":45.39818546007678,"h":17.598097502972657},{"id":"9yzxbmurfikmvdn142i","page":2,"type":"problem","x":50.756379860876926,"y":9.512485136741974,"w":45.90260974296651,"h":16.765755053507732},{"id":"hpsjf04jac6mvdn18us","page":2,"type":"problem","x":50.420097005617095,"y":27.2294887039239,"w":46.32296331204131,"h":17.835909631391203},{"id":"dwxu0v3zbbdmvdn1d0i","page":2,"type":"problem","x":50.504167719432054,"y":46.25445897740785,"w":46.49110473967122,"h":16.4090368608799},{"id":"ga826fhefxmvdn1fri","page":2,"type":"problem","x":50.840450574691886,"y":64.09036860879905,"w":46.40703402585626,"h":16.527942925089178},{"id":"ai6madoqz0rmvdn1moa","page":4,"type":"problem","x":3.67678012450101,"y":18.906064209274675,"w":29.424749835234945,"h":30.439952437574313},{"id":"hcwynqx97bhmvdn1q06","page":4,"type":"problem","x":3.424567983056139,"y":50.535077288941736,"w":29.508820549049904,"h":29.845422116527942},{"id":"mo79hjkgwxmmvdn22ls","page":5,"type":"problem","x":35.371439232739796,"y":42.568370986920335,"w":30.349527687199476,"h":29.96432818073722},{"id":"dojibit1p3mvdn2713","page":5,"type":"problem","x":34.86701494985005,"y":12.604042806183115,"w":30.6858105424593,"h":28.894173602853748},{"id":"webnrut7ybpmvdn29yx","page":5,"type":"problem","x":66.72981548571876,"y":12.485136741973841,"w":31.61058839442383,"h":29.25089179548157},{"id":"8ug6g1jorefmvdn2f5i","page":6,"type":"problem","x":3.340497269241182,"y":18.430439952437574,"w":29.59289126286486,"h":31.153388822829967},{"id":"7yca2dg5c2mmvdn2ioa","page":6,"type":"problem","x":35.03515637747997,"y":12.485136741973841,"w":30.181386259569557,"h":30.321046373365043},{"id":"obz7ffyijhmvdn2uje","page":4,"type":"problem","x":34.278519953145356,"y":44.351961950059454,"w":31.69465910823879,"h":31.747919143876338},{"id":"0t3sdcf64l3mvdn3j5o","page":6,"type":"problem","x":67.40238119623841,"y":12.841854934601665,"w":30.685810542459308,"h":29.131985731272295},{"id":"eskfg6rj8f4mvdn3wc8","page":4,"type":"problem","x":67.23423976860849,"y":42.80618311533888,"w":30.26545697338453,"h":29.845422116527942},{"id":"jxcjyo03nq8mvdn42h7","page":7,"type":"problem","x":3.424567983056139,"y":48.03804994054697,"w":30.18138625956956,"h":13.912009512485135},{"id":"asn7mtjignlmvdn44zq","page":7,"type":"problem","x":66.39353263045892,"y":16.646848989298455,"w":30.853951970089227,"h":16.527942925089178},{"id":"uf5j19sdszmvdn4752","page":7,"type":"problem","x":66.6457447719038,"y":34.60166468489893,"w":31.19023482534905,"h":15.81450653983353},{"id":"9sx9z2t51vumvdn49lq","page":7,"type":"problem","x":34.95108566366501,"y":13.198573127229489,"w":30.013244831939645,"h":28.418549346016647},{"id":"ecijzheqfndmvdn4del","page":8,"type":"problem","x":66.30946191664397,"y":12.128418549346017,"w":32.28315410494349,"h":30.202140309155766}];
+const pages=[...document.querySelectorAll('.shell .sheet, .page-shell .page')];
+for(let i=0;i<pages.length;i++){
+ const page=pages[i]; const layer=document.createElement('div');layer.className='mt2-final-star-layer';
+ for(const m of marks){if(Number(m.page)!==i+1)continue;
+ const box=document.createElement('div');box.className='mt2-final-star';
+ box.style.left=m.x+'%';box.style.top=m.y+'%';box.style.width=m.w+'%';box.style.height=m.h+'%';layer.appendChild(box);
+ }page.appendChild(layer);
+}
+const toolbar=document.querySelector('.toolbar'); if(toolbar){
+ const btn=document.createElement('button');btn.type='button';btn.id='mt2FinalToggle';btn.textContent='★★★ 보기';
+ btn.addEventListener('click',function(){const enabled=document.body.classList.toggle('mt2-final-show-stars');btn.classList.toggle('active',enabled);btn.textContent=enabled?'★★★ 숨기기':'★★★ 보기'});
+ toolbar.appendChild(btn);
+}
+})();</script></body>
 </html>
